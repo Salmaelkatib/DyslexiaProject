@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'gamified_test/css/Q30ToQ32Screen.css'%}">
+</head>
+<body>
+    <div class="container" id="screen">
+        <div class="message" id="wordMessage">Type here:</div>
+        <input type="text" id="userInput">
+        {%include 'progressbar.html'%}
+    </div>
+    <script id="myScript" src="{%static 'gamified_test/Js/Q31ToQ32Screen.js'%}" type="module"
+    data-list="{{ my_list }}" data-exerciseNum="32"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>

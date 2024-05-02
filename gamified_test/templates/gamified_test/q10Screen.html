@@ -1,0 +1,8 @@
+{%extends 'gridview.html'%}
+{%block content%}
+
+{%load static %}
+<script src="{%static 'gamified_test/Js/Q5To13-Q18To21.js'%}" type="module" id="myScript"
+ data-gridSize="3" data-exerciseNum="10" data-Url="{% url 'gamified_test:q11Screen' %}" data-list="{{ my_list }}"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{%endblock%}

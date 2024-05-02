@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <form enctype="multipart/form-data" method="POST" action="{% url 'authentication:register-player' %}">
+    {%csrf_token%}
+      <div class="form-row">
+          <div class="form-group col-md-12">
+            {{ userForm.username.label_tag }}
+            {{ userForm.username}}
+          </div>
+        <div class="form-group col-md-6">
+          {{ userForm.email.label_tag }}
+          {{ userForm.email}}
+        </div>
+        <div class="form-group col-md-6">
+          {{ userForm.password.label_tag }}
+          {{ userForm.password}}
+        </div>
+      </div> 
+      <div class="form-row">
+          <div class="form-group col-md-5">
+              <label for="isNative">Is English your native language?</label>
+              {{ playerForm.isNative}}
+          </div>
+          <div class="form-group col-md-7">
+              <label for="failedLang">Do you have difficulties in language class?</label>
+              {{ playerForm.failedLang}}
+          </div>
+      </div>
+      <div class="form-row">
+          <div class="form-group col-md-5">
+              <label for="nationalId">National Id</label>
+              {{ playerForm.nationalId}}
+          </div>
+          <div class="form-group col-md-5">
+              <label for="gender">Gender</label>
+              {{ playerForm.gender}}
+          </div>
+          <div class="form-group col-md-2">
+              <label for="age">Age</label>
+              {{ playerForm.age}}
+          </div>
+      </div>
+       <button type="submit" class="btn btn-primary">Sign up</button>
+  </form>
+</body>
+</html>

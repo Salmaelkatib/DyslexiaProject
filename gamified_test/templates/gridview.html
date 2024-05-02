@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    body, html {
+        margin: auto;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+    }
+    
+    #container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    
+    #grid-container {
+        display: grid;
+        gap: 5px;
+        padding: 20px;
+    }
+    
+    .grid-tile {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+    }
+</style>
+<body>
+    <div id="container">
+        <div id="grid-container"></div>
+    </div>
+    {%include 'progressbar.html'%}
+</body>
+{%block content%}
+{%endblock%}
+</html>
+

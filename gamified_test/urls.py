@@ -1,0 +1,43 @@
+from django.urls import path
+from . import views
+
+app_name = 'gamified_test'
+
+urlpatterns = [
+    path('signin/', views.signin, name='signin'),
+    path('register/', views.register, name='register'),
+    path('q1Screen/', views.q1Screen, name='q1Screen'),
+    path('q2Screen/', views.q2Screen, name='q2Screen'),
+    path('q3Screen/', views.q3Screen, name='q3Screen'),
+    path('q4Screen/', views.q4Screen, name='q4Screen'),
+    path('q5Screen/', views.q5Screen, name='q5Screen'),
+    path('q6Screen/', views.q6Screen, name='q6Screen'),
+    path('q7Screen/', views.q7Screen, name='q7Screen'),
+    path('q8Screen/', views.q8Screen, name='q8Screen'),
+    path('q9Screen/', views.q9Screen, name='q9Screen'),
+    path('q10Screen/', views.q10Screen, name='q10Screen'),
+    path('q11Screen/', views.q11Screen, name='q11Screen'),
+    path('q12Screen/', views.q12Screen, name='q12Screen'),
+    path('q13Screen/', views.q13Screen, name='q13Screen'),
+    path('q14Screen/', views.q14Screen, name='q14Screen'),
+    path('q15Screen/', views.q15Screen, name='q15Screen'),
+    path('q16Screen/', views.q16Screen, name='q16Screen'),
+    path('q17Screen/', views.q17Screen, name='q17Screen'),
+    path('q18Screen/', views.q18Screen, name='q18Screen'),
+    path('q19Screen/', views.q19Screen, name='q19Screen'),
+    path('q20Screen/', views.q20Screen, name='q20Screen'),
+    path('q21Screen/', views.q21Screen, name='q21Screen'),
+    path('q22Screen/', views.q22Screen, name='q22Screen'),
+    path('q23Screen/', views.q23Screen, name='q23Screen'),
+    path('q24Screen/', views.q24Screen, name='q24Screen'),
+    path('q25Screen/', views.q25Screen, name='q25Screen'),
+    path('q26Screen/', views.q26Screen, name='q26Screen'),
+    path('q27Screen/', views.q27Screen, name='q27Screen'),
+    path('q28Screen/', views.q28Screen, name='q28Screen'),
+    path('q29Screen/', views.q29Screen, name='q29Screen'),
+    path('q30Screen/', views.q30Screen, name='q30Screen'),
+    path('q31Screen/', views.q31Screen, name='q31Screen'),
+    path('q32Screen/', views.q32Screen, name='q32Screen'),
+    path('save_performance_data/<int:exercise_num>/', views.save_performance_data, name='save_performance_data'),
+    path('result/', views.result, name='result'),
+]

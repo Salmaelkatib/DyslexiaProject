@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'gamified_test/css/Q23ToQ25-Q29Screen.css'%}">
+</head>
+<body>
+    <div class="container">
+        <div id="word-container" class="word-container"></div>
+        {%include 'progressbar.html'%}
+    </div>
+    <script id="myScript" src="{%static 'gamified_test/Js/Q24To25_base.js'%}" type="module"
+                    data-url = "{% url 'gamified_test:q25Screen' %}" data-exerciseNum="24"
+                    data-list="{{ my_list }}"
+                    data-key ="{{ selected_key }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>

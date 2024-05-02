@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Bootstrap css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'authentication/css/register.css' %}">
+</head>
+<body>
+    <div class="container custom-container">
+        <div class="card custom-card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-6">
+                    <img class="card-img" src="{% static 'authentication/dyadapt.png'%}" alt="...">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h4 class="card-title">Create an account as:</h4>
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-player-tab" data-toggle="pill" data-target="#pills-player" type="button" role="tab" aria-controls="pills-player" aria-selected="true">Player</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-parent/teacher-tab" data-toggle="pill" data-target="#pills-parent-teacher" type="button" role="tab" aria-controls="pills-parent/teacher" aria-selected="false">Parent /Teacher</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-player" role="tabpanel" aria-labelledby="pills-player-tab">
+                               {%include 'authentication/player-form.html'%}
+                            </div>
+                            <div class="tab-pane fade" id="pills-parent-teacher" role="tabpanel" aria-labelledby="pills-parent-teacher-tab">
+                                {%include 'authentication/parent-teacher-form.html'%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Include jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- Include Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

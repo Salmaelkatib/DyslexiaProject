@@ -1,0 +1,48 @@
+{%extends "authentication/base.html"%}
+
+{%block content%}
+{%load static%}
+<link rel="stylesheet" href="{%static 'authentication/css/home.css'%}">
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <div class="jumbotron-content">
+            <h1 class="display-4">What is Dyadapt?</h1>
+            <p class="lead">
+                With Dyadapt you will improve your reading experience.
+                You will also have access to the Dyadapt screening test that allows you, in just 15 minutes, to detect if your child is dyslexic or not , 
+                through playing a game personalized based on 24 cognitive skills targeting both cognitive weaknesses and strengths. 
+            </p>
+            {% if user.is_authenticated%}
+            <a class="btn btn-primary btn-lg" href="{% url 'gamified_test:q1Screen' %}" role="button">Start Test</a>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+            <h3 class="card-title"><strong>For Parents</strong></h3>
+            <p class="card-text">You can assess you child's learning abilities and know whether he is at risk of dyslexia or not ,
+                through a fun game, withot having to go to a speacialist.
+                Your child will overcome his difficulties in reading through our provided adaptive tools.
+            </p>
+            <a href="#" class="btn btn-primary">Learn more</a>
+            </div>
+        </div>
+        </div>
+        <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+            <h3 class="card-title"><strong>For Schools</strong></h3>
+            <p class="card-text">We offer a cutting-edge and scientifically validated early dyslexia screening solution to eliminate school failure due to reading-writing difficulties.
+                You will optimize the center's resources, through the automatic customization of exercises.</p>
+            <a href="#" class="btn btn-primary">Learn more</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+{%endblock%}

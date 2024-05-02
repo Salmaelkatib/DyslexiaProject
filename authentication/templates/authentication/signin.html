@@ -1,0 +1,36 @@
+{%extends "authentication/base.html"%}
+
+{%block content%}
+    <style>
+        body{
+            background-color: rgba(236, 237, 237, 0.187);
+        }
+        .card{
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+        }
+    </style>
+    <div class="container">
+        <div class="card w-55">
+            <div class="card-body">
+              <h1 class="card-title"><strong>Sign in</strong></h1>
+              <form action="{% url 'authentication:user_login' %}" method="POST">
+                {%csrf_token%}
+                <div class="form-group">
+                  <label for="user">Username</label>
+                  <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" id="checkbox">
+                  <label class="form-check-label" for="checkbox">Remember Me</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+              </form>
+            </div>
+          </div>
+          </div>
+      </div>
+{%endblock%}
