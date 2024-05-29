@@ -229,7 +229,7 @@ def save_performance_data(request, exercise_num):
 
 def getPredictions(data_array):
     # Load the ML model 
-    model = pickle.load(open("model.sav", "rb"))
+    model = pickle.load(open("lr_model.sav", "rb"))
     scaler = pickle.load(open("scaler.sav", "rb"))
     # Scale the input data using the loaded scaler
     scaled_data = scaler.transform(data_array.reshape(1, -1))
