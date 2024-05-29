@@ -1,6 +1,6 @@
 # Steps to run this project
 # Run the following commands inside the directory of the project:
-1- to activate the virtual enviroment:  .venv/scripts/activate 
+1- to activate the virtual enviroment:  .venv\Scripts\activate 
 
 
 2- to install django:  pip install django
