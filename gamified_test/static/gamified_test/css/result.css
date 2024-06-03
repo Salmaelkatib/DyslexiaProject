@@ -1,0 +1,51 @@
+.card-title {
+    color: #2196f3;
+}
+
+body {
+    background: linear-gradient(to right, #2195f32d, rgba(3, 205, 134, 0.263));
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.result {
+    background-color: aliceblue;
+    font-size: x-large;
+    margin-bottom: auto; /* Pushes the result section to the top */
+}
+
+.adaptation-container {
+    margin-top: 100px; /* Ensures this container stays at the bottom */
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#adaptationBtn {
+    background-color: #2196f3;
+}

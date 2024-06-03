@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from .models import GameData
 import numpy as np
 import pickle
+import os
 from django.views.decorators.csrf import csrf_exempt
 
 def signin(request):
@@ -229,16 +230,28 @@ def save_performance_data(request, exercise_num):
 
 def getPredictions(data_array):
     # Load the ML model 
-    model = pickle.load(open("lr_model.sav", "rb"))
-    scaler = pickle.load(open("scaler.sav", "rb"))
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    model_file_path = os.path.join(current_directory, 'ml_model', 'lr_model.sav')
+    scaler_file_path = os.path.join(current_directory, 'ml_model', 'scaler.sav')
+    
+    with open(model_file_path, "rb") as model_file:
+        model = pickle.load(model_file)
+    
+    with open(scaler_file_path, "rb") as scaler_file:
+        scaler = pickle.load(scaler_file)
+    
     # Scale the input data using the loaded scaler
-    scaled_data = scaler.transform(data_array.reshape(1, -1))
-    prediction = model.predict(scaled_data)
-
+    scaled_data = scaler.transform([data_array])  # Ensure data is in 2D array format
+    prediction_prob = model.predict_proba(scaled_data)[:, 1]
+    
+    # Use the threshold to determine the prediction
+    threshold = 0.265
+    prediction = (prediction_prob > threshold).astype(int)
+    
     if prediction == 0:
-        return "No"   #not dyslexic
+        return "Low-Risk"  # Not dyslexic
     elif prediction == 1:
-        return "Yes"   #dyslexic
+        return "High-Risk"  # Dyslexic
     else:
         return "error"
         
@@ -246,17 +259,22 @@ def getPredictions(data_array):
 def result(request):
     # Define the order of fields for feeding into the ML model
     field_order = [
-        'gender', 'isNative', 'otherlang', 'age',
-        'clicks', 'hits', 'score', 'accuracy' ,'misses', 'missrate', 'result'
+        'gender', 'isNative', 'otherlang', 'age'
     ]
+    # Add performance metrics for each exercise to field_order
+    for i in range(1, 33):
+        field_order.extend([f'clicks_{i}', f'hits_{i}', f'misses_{i}', f'missrate_{i}', f'score_{i}', f'accuracy_{i}'])
+    
     data_dict = {}
-    # retrieve data of the first row of the GameData table
+    # Retrieve data of the first row of the GameData table
     game_data_instance = GameData.objects.first()
-
-    # access demographic data of player
-    data_dict['gender'] = game_data_instance.player.gender
-    data_dict['NativeLang'] = game_data_instance.player.isNative
-    data_dict['OtherLang'] = game_data_instance.player.failedLang
+    
+    # Access demographic data of player
+    gender = game_data_instance.player.gender
+    created_at = game_data_instance.created_at
+    data_dict['gender'] = 1.0 if gender.lower() == 'male' else 0.0
+    data_dict['isNative'] = game_data_instance.player.isNative
+    data_dict['otherlang'] = game_data_instance.player.failedLang
     data_dict['age'] = game_data_instance.player.age
     
     # Access performance metrics for each exercise
@@ -270,12 +288,16 @@ def result(request):
     
     # Arrange the data according to the specified order
     input_data = [data_dict[field] for field in field_order]
-    data_array = np.array(input_data)
+    data_array = np.array(input_data, dtype=float)  # Ensure the data array is of type float
 
     result = getPredictions(data_array)
-    # save result in database
-    setattr(game_data_instance,'result', result)
+    
+    # Save result in database
+    setattr(game_data_instance, 'result', result)
     game_data_instance.save()
 
-    return render(request, 'result.html', {'result':result})
+    return render(request, 'gamified_test/result.html', 
+                  {'result': result ,
+                   'date': created_at})
+
 
