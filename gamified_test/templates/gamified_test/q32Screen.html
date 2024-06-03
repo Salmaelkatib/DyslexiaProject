@@ -13,7 +13,7 @@
         {%include 'progressbar.html'%}
     </div>
     <script id="myScript" src="{%static 'gamified_test/Js/Q31ToQ32Screen.js'%}" type="module"
-    data-list="{{ my_list }}" data-exerciseNum="32"></script>
+    data-list="{{ my_list }}" data-url = "{% url 'gamified_test:result' %}" data-exerciseNum="32"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 </html>
