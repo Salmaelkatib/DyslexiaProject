@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="">
+{%load static %}
+<head>
+  <meta charset="utf-8">
+  <title>Eye Tracking Test</title>
+</head>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .container {
+        text-align: center;
+        font-size: larger;
+        line-height: 2.0;
+        flex-grow: 1; /* Grow to fill remaining space */
+    }
+   #calibrationButton{
+        margin-top: auto; /* Push buttons to the bottom */
+        margin-left: auto; /* Center horizontally */
+        margin-right: auto;
+    }
+    #embeddedPage {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 100px;
+        border: none;
+      }
+</style>
+<body>
+  <canvas id="output" style="position: fixed;"></canvas>
+  <div class="container">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus error obcaecati sapiente porro iure dolores repellendus, ex eaque. Optio iste velit expedita omnis, nam alias at perspiciatis exercitationem minima ut?</p>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus dolores numquam deleniti? Distinctio accusantium earum aperiam impedit modi, quam ullam, aliquid vel maiores vero et fugiat delectus, cum dolore perferendis?</p>
+    <button id="calibrationButton" style="margin: 0 auto;">Start calibration</button>
+  </div>
+  <!-- Embed another HTML page containing the stopTracking button to ensure its responsivness when eyeTracking is active -->
+<iframe id="embeddedPage" src="{% url 'eyeTracking:stopTracking' %}"></iframe>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{%static 'eyeTracking/js/eyeTracking.js'%}" type="module"></script>
+</body>
+
+</html>

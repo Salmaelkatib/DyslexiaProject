@@ -1,7 +1,12 @@
+import SpeechSynthesisModule from './speechSynthesisModule.js';
+import sendPerformanceData from './AJAXModule.js';
+
 const wordContainer = document.getElementById("word-container");
 const lettersContainer = document.getElementById("letters-container");
 const progressBar = document.getElementById("progress-bar");
 const timer = document.querySelector("#progress-bar p");
+var exerciseNum = parseInt(document.getElementById("myScript").getAttribute( "data-exerciseNum" ));
+let [timerOn , playedSound] = [false , false];
 
 const listOfWords = [
     {'b': "webnesday"},
@@ -37,21 +42,33 @@ const possibleCorrectLetters = [
 let duration = 25;
 let timerCount = duration; // Initial timer count in seconds 
 
-const timerInterval = setInterval(() => {
-    timerCount--;
-    const progress = (duration - timerCount) / duration * 100;
-    progressBar.style.width = `${100 - progress}%`;
-    timer.textContent= timerCount;
-
-    if (timerCount <= 0) {
-        clearInterval(timerInterval);
-        // save data and navigate to next question
-        window.location.href = document.getElementById("myScript").getAttribute( "data-url" );
+function generateExercise() {
+    // play sound then start timer
+    if(!playedSound) {SpeechSynthesisModule.speak('Correct the wrong letter.'); playedSound=true;}
+    if(!timerOn){
+        setTimeout(() => {
+            const timerInterval = setInterval(() => {
+                timerCount--;
+                const progress = (duration - timerCount) / duration * 100;
+                progressBar.style.width = `${100 - progress}%`;
+                timer.textContent = timerCount;
+            
+                if (timerCount <= 0) {
+                    clearInterval(timerInterval);
+                    // calculate missrate ,score, accuracy
+                    missrate = misses / clicks;
+                    accuracy = hits / clicks;
+                    score = hits;
+                    // save data and navigate to next question
+                    sendPerformanceData(exerciseNum, clicks, hits, misses, missrate, score, accuracy , window.location.href);
+                    setTimeout(() => {
+                        window.location.href = document.getElementById("myScript").getAttribute("data-url");
+                    }, 1000);
+                }
+            }, 1000);
+        }, 600);
+        timerOn=true;
     }
-}, 1000);
-
-// Function to generate word with a wrong letter colored in blue and list of letters to pick
-function generateWordAndLetters() {
     const randomIndex = Math.floor(Math.random() * listOfWords.length);
     const wordObj = listOfWords[randomIndex];
     const wrongLetter = Object.keys(wordObj)[0];
@@ -90,12 +107,18 @@ function generateWordAndLetters() {
             correctLetters.splice(randomIndex, 1);
 
             // Reload question with new random letter
-            generateWordAndLetters();
+            generateExercise();
 
-    // You can add further logic here based on whether the picked letter is correct or not
+        //calculate performance metrics based on the clicked letter
+        clicks++;
+        if(isCorrect) hits++;
+        else misses++;
 });
 }
 }
+
+//performance metrics
+let [clicks, hits, misses, missrate,score, accuracy] = [0, 0, 0, 0,0, 0];
 // Call the function to generate word and letters
-generateWordAndLetters();
+generateExercise();
 

@@ -1,3 +1,6 @@
+import SpeechSynthesisModule from './speechSynthesisModule.js';
+import sendPerformanceData from './AJAXModule.js';
+
 const list = localStorage.getItem("listData") ? JSON.parse(localStorage.getItem("listData")) : { 
     "F": Array(12).fill('E').concat(['F'], Array(12).fill('E')),
     "E": Array(12).fill('F').concat(['E'], Array(12).fill('F')),
@@ -23,8 +26,34 @@ const list = localStorage.getItem("listData") ? JSON.parse(localStorage.getItem(
 };
 
 let randomKey;
+let [timerOn , playedSound] = [false , false];
 
 function generateGridTiles(gridSize, list) {
+    if(!playedSound) {SpeechSynthesisModule.speak('choose the different letter.'); playedSound=true;}
+        if(!timerOn){
+            setTimeout(() => {
+                const timerInterval = setInterval(() => {
+                    timerCount--;
+                    const progress = (duration - timerCount) / duration * 100;
+                    progressBar.style.width = `${100 - progress}%`;
+                    timer.textContent = timerCount;
+                
+                    if (timerCount <= 0) {
+                        clearInterval(timerInterval);
+                        // calculate missrate ,score, accuracy
+                        missrate = misses / clicks;
+                        accuracy = hits / clicks;
+                        score = hits;
+                         // save data and navigate to next question
+                        sendPerformanceData(exerciseNum, clicks, hits, misses, missrate, score, accuracy , window.location.href);
+                        setTimeout(() => {
+                            window.location.href = document.getElementById("myScript").getAttribute("data-url");
+                        }, 1000);
+                    }
+                }, 1000);
+            }, 600);
+            timerOn=true;
+        }
     const exerciseLetters = generateExercise(list);
     const gridContainer = document.getElementById('grid-container');
 
@@ -76,26 +105,10 @@ function buildGridTile(gridSize, letter) {
 const progressBar = document.getElementById("progress-bar");
 const timer = document.querySelector("#progress-bar p");
 const gridSize = parseInt(document.getElementById("myScript").getAttribute("data-gridSize"));
+var exerciseNum = parseInt(document.getElementById("myScript").getAttribute( "data-exerciseNum" ));
 
 let duration = 25;
 let timerCount = duration;
-
-const timerInterval = setInterval(() => {
-    timerCount--;
-    const progress = (duration - timerCount) / duration * 100;
-    progressBar.style.width = `${100 - progress}%`;
-    timer.textContent = timerCount;
-
-    if (timerCount <= 0) {
-        clearInterval(timerInterval);
-         // calculate missrate ,score, accuracy
-         missrate = misses / clicks;
-         accuracy = hits / clicks;
-         score = hits;
-        // save data and navigate to next question
-        window.location.href = document.getElementById("myScript").getAttribute("data-Url");
-    }
-}, 1000);
 
 //performance metrics
 let [clicks, hits, misses, missrate,score, accuracy] = [0, 0, 0, 0,0, 0];

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .container {
+        text-align: center;
+        font-size: larger;
+        line-height: 2.0;
+        flex-grow: 1; /* Grow to fill remaining space */
+    }
+   #stopTrackingButton{
+        margin-top: auto; /* Push buttons to the bottom */
+        margin-left: auto; /* Center horizontally */
+        margin-right: auto;
+    }
+</style>
+<body>
+    <div class="container">
+        <button id="stopTrackingButton" style="margin: 0 auto;">Stop Tracking</button>
+    </div>
+</body>
+</html>

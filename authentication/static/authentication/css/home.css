@@ -1,12 +1,3 @@
-.jumbotron {
-    margin-top: 50px;
-    background: url('https://drroseann.com/wp-content/uploads/2019/02/Child-Reading.png') center center/cover no-repeat;
-    position: relative;
-    color: #fff;
-    text-align: left;
-    overflow: hidden;
-    width: 100%;
-}
 .jumbotron::before {
     content: "";
     position: absolute;

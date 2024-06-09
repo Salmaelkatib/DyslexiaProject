@@ -28,18 +28,26 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CORS_ALLOW_ALL_ORIGINS = True
+X_FRAME_OPTIONS = 'ALLOWALL'
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+SECURE_CROSS_ORIGIN_EMBEDDER_POLICY = 'require-corp'
+
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'corsheaders',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gamified_test',
-    'authentication'
+    'authentication',
+    'eyeTracking'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +58,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'dyslexia_project.custom_middleware.CustomSecurityHeadersMiddleware',
 ]
 
 ROOT_URLCONF = 'dyslexia_project.urls'
@@ -130,6 +141,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'gamified_test/static'),
+    os.path.join(BASE_DIR, 'eyeTracking/static'),
 )
 
 # Default primary key field type

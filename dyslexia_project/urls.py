@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', include('gamified_test.urls' , namespace='gamified_test')),
     path('authentication/', include('authentication.urls' , namespace= 'authentication')),
+    path('eyeTracking/', include('eyeTracking.urls' , namespace= 'eyeTracking')),
     path('logout/', views.user_logout, name='logout'),
 ]
