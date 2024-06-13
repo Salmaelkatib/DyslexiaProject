@@ -2,9 +2,11 @@ import EasySeeSo from './easy-seeso.js';
 import showGaze from './showGaze.js';
 import sendGazeData from './AJAXModule.js';
 
+
 const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
-export let seeSoInstance;
-export let gazeDataArray = [];
+let seeSoInstance;
+let gazeDataArray = [];
+export let ppi;
 
 // In redirected page
 function parseCalibrationDataInQueryString() {
@@ -30,12 +32,15 @@ function onGaze(gazeInfo) {
     // Adjust timestamp to UTC format
     let timestamp = gazeInfo.timestamp;
     const date = new Date(timestamp);
+    const minutes = date.getUTCMinutes();
+    const seconds = date.getUTCSeconds();
     const milliseconds = date.getUTCMilliseconds().toString().padStart(3, '0');
-    timestamp = parseInt(milliseconds);
+    const totalSeconds = minutes * 60 + seconds;
+    timestamp = parseFloat(`${totalSeconds}.${milliseconds}`);
     
     // Append gaze info to the array
     gazeDataArray.push({
-        timestamp: timestamp,
+        timestamp: timestamp*1000,  //in ms
         x: gazeInfo.x,
         y: gazeInfo.y,
         state: gazeInfo.eyemovementState
@@ -57,6 +62,14 @@ async function main() {
                 await seeSoInstance.setCalibrationData(calibrationData);
                 await seeSoInstance.startTracking(onGaze);
                 console.log('Eye tracking started.');
+
+                // get monitorInch size from calibration data
+                const data = JSON.parse(calibrationData);
+                const monitorInch = parseInt(data.monitorInch);
+                // calculate ppi from screen resolution
+                const screenWidth = window.screen.width;
+                const screenHeight = window.screen.height;  
+                ppi = ((screenWidth**2 + screenHeight**2) ** 0.5)/monitorInch;
             }, // Callback when init succeeded.
             () => console.log("callback when init failed.") // Callback when init failed.
         );
@@ -76,6 +89,7 @@ async function main() {
     stopTrackingButton.addEventListener('click', async () => {
         seeSoInstance.stopTracking();
         // send the gazeDataArray 
-        sendGazeData(gazeDataArray , window.location.href);
+        console.log(gazeDataArray);
+        sendGazeData(gazeDataArray , window.location.href , ppi);
         });
   })()
