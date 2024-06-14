@@ -20,13 +20,13 @@ def save_gaze_data(request):
             features = process_gaze_info(gaze_data_array , ppi)
             print(features)
             # Save each gaze data entry to the database
-            for gaze_data in gaze_data_array:
-                GazeData.objects.create(
-                    timestamp=gaze_data['timestamp'],
-                    x=gaze_data['x'],
-                    y=gaze_data['y'],
-                    state=gaze_data['state']
-                )
+            # for gaze_data in gaze_data_array:
+            #     GazeData.objects.create(
+            #         timestamp=gaze_data['timestamp'],
+            #         x=gaze_data['x'],
+            #         y=gaze_data['y'],
+            #         state=gaze_data['state']
+            #     )
             return JsonResponse({'status': 'success'}, status=200)
         except json.JSONDecodeError as e:
             print("JSON decode error:", e)

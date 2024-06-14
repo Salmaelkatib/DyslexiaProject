@@ -25,7 +25,8 @@ def process_gaze_info(gazeDataArray , ppi):
     saccades = []
     current_fixation = []
     current_saccade = []
-    velocity_threshold = (250*ppi)/25.4  # px/s
+    print('ppi',ppi)
+    velocity_threshold = 350  # px/s
     print('threshold',velocity_threshold)
     
     # Loop through the eye-tracking data

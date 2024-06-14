@@ -2,7 +2,6 @@ import EasySeeSo from './easy-seeso.js';
 import showGaze from './showGaze.js';
 import sendGazeData from './AJAXModule.js';
 
-
 const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
 let seeSoInstance;
 let gazeDataArray = [];
@@ -40,7 +39,7 @@ function onGaze(gazeInfo) {
     
     // Append gaze info to the array
     gazeDataArray.push({
-        timestamp: timestamp*1000,  //in ms
+        timestamp: gazeInfo.timestamp,  //in ms
         x: gazeInfo.x,
         y: gazeInfo.y,
         state: gazeInfo.eyemovementState
@@ -49,7 +48,6 @@ function onGaze(gazeInfo) {
     // To show gaze dot on screen
     showGaze(gazeInfo);
 }
-
 async function main() {
     const calibrationData = parseCalibrationDataInQueryString();
 

@@ -41,7 +41,7 @@ function showGaze(gazeInfo) {
 }
 
 function hideGaze(){
-  hideGazeInfoOnDom();
+  //hideGazeInfoOnDom();
   hideGazeDotOnDom();
 }
 export default showGaze;
