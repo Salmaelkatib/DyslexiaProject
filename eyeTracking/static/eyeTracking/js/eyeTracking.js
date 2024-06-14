@@ -40,8 +40,8 @@ function onGaze(gazeInfo) {
     // Append gaze info to the array
     gazeDataArray.push({
         timestamp: gazeInfo.timestamp,  //in ms
-        x: gazeInfo.x,
-        y: gazeInfo.y,
+        x: (gazeInfo.x),
+        y: (gazeInfo.y),
         state: gazeInfo.eyemovementState
     });
 
@@ -59,6 +59,7 @@ async function main() {
                 document.getElementById('calibrationButton').disabled = true;
                 await seeSoInstance.setCalibrationData(calibrationData);
                 await seeSoInstance.startTracking(onGaze);
+                await seeSoInstance.setTrackingFps(100);
                 console.log('Eye tracking started.');
 
                 // get monitorInch size from calibration data

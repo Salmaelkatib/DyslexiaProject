@@ -64,6 +64,7 @@ def process_csv_file(csv_file):
     
     # Construct feature dictionary
     features = {
+        'Total Time':df['T'].iloc[len(df)-1]-df['T'].iloc[0],
         'Average Fixation Duration': sum(avg_fixation_durations) / len(avg_fixation_durations) if avg_fixation_durations else 0,
         'Average Saccade Duration': sum(avg_saccade_durations) / len(avg_saccade_durations) if avg_saccade_durations else 0,
         'Total Fixations': total_fixations,
@@ -104,12 +105,12 @@ for file in csv_files:
 df_final = pd.DataFrame(data)
 
 # Reorder columns to place 'Gender' first and 'Dyslexic' last
-df_final = df_final[['Participant Code','Gender',  'Average Fixation Duration', 'Average Saccade Duration', 'Total Fixations', 'Total Saccades', 'Dyslexic']]
+df_final = df_final[['Participant Code','Gender','Total Time',  'Average Fixation Duration', 'Average Saccade Duration', 'Total Fixations', 'Total Saccades', 'Dyslexic']]
 
 # Save the final DataFrame to a CSV file
 output_file = "D:/Grad Projroj/Eye_Tracking_Dataset.csv"
 df_final.to_csv(output_file, index=False, header=[
-    'Participant Code','Gender', 'Avg_Fix_Duration', 'Avg_Sacc_Duration', 'Total_Fix', 'Total_Sacc','Dyslexic'
+    'Participant Code','Gender','Total_Time', 'Avg_Fix_Duration', 'Avg_Sacc_Duration', 'Total_Fix', 'Total_Sacc','Dyslexic'
 ])
 
 # Print the final DataFrame to the console
