@@ -9,7 +9,9 @@ def calculate_dispersion(gaze_points):
     return dispersion
 
 # Function to process a single CSV file
-def process_csv_file(csv_file, dispersion_threshold=33):
+def process_csv_file(csv_file):
+
+    dispersion_threshold=(33/300)*25.4
     # Read CSV file
     df = pd.read_csv(csv_file)
     
@@ -40,21 +42,21 @@ def process_csv_file(csv_file, dispersion_threshold=33):
         saccades.append(saccade)
 
     # Extract features
-    fixation_start_times = [fixation[0][0] for fixation in fixations]
+    
     avg_fixation_durations = [fixation[-1][0] - fixation[0][0] for fixation in fixations]
     avg_saccade_durations = [saccade[1][0] - saccade[0][0] for saccade in saccades]
     total_fixations = len(fixations)
     total_saccades = len(saccades)
-    saccade_fixation_ratio = total_saccades / total_fixations if total_fixations > 0 else 0
+    
 
     # Construct feature dictionary
     features = {
-        'First Fixation Start Time': min(fixation_start_times) if fixation_start_times else 0,
+        
         'Average Fixation Duration': sum(avg_fixation_durations) / len(avg_fixation_durations) if avg_fixation_durations else 0,
         'Average Saccade Duration': sum(avg_saccade_durations) / len(avg_saccade_durations) if avg_saccade_durations else 0,
         'Total Fixations': total_fixations,
         'Total Saccades': total_saccades,
-        'Saccade-Fixation Ratio': saccade_fixation_ratio
+        
     }
     return features
 
@@ -90,12 +92,12 @@ for file in csv_files:
 df_final = pd.DataFrame(data)
 
 # Reorder columns to place 'Gender' first and 'Dyslexic' last
-df_final = df_final[['Gender', 'First Fixation Start Time', 'Average Fixation Duration', 'Average Saccade Duration', 'Total Fixations', 'Total Saccades', 'Saccade-Fixation Ratio', 'Dyslexic']]
+df_final = df_final[['Gender', 'Average Fixation Duration', 'Average Saccade Duration', 'Total Fixations', 'Total Saccades', 'Dyslexic']]
 
 # Save the final DataFrame to a CSV file
 output_file = "D:/Grad Projroj/Eye_Tracking_Dataset.csv"
 df_final.to_csv(output_file, index=False, header=[
-    'Gender', 'First_Fix_Start', 'Avg_Fix_Duration', 'Avg_Sacc_Duration', 'Total_Fix', 'Total_Sacc', 'Sacc_Fix_Ratio', 'Dyslexic'
+    'Gender', 'Avg_Fix_Duration', 'Avg_Sacc_Duration', 'Total_Fix', 'Total_Sacc',  'Dyslexic'
 ])
 
 # Print the final DataFrame to the console
