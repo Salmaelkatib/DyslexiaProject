@@ -26,7 +26,7 @@ def process_gaze_info(gazeDataArray , ppi):
     current_fixation = []
     current_saccade = []
     print('ppi',ppi)
-    velocity_threshold = 250  # px/s 
+    velocity_threshold = 250 # px/s 
     print('Velocity Threshold:',velocity_threshold)
     min_fixation_duration = 50  # milliseconds
     print('Duration Threshold:',min_fixation_duration)
@@ -54,12 +54,19 @@ def process_gaze_info(gazeDataArray , ppi):
         fixations.append(current_fixation)
     if current_saccade:
         saccades.append(current_saccade)
-        
+
+    new_saccades = []   
     #check saccade duration    
     for saccade in saccades:
         saccade_duration=saccade[-1][0] - saccade[0][0]
         if saccade_duration > min_fixation_duration:
             fixations.append(saccade)
+        else:
+            new_saccades.append(saccade)
+
+    # Update the saccades list
+    saccades = new_saccades
+            
    
     # Extract features
     avg_fixation_durations = [fixation[-1][0] - fixation[0][0] for fixation in fixations]
