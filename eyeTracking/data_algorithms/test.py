@@ -8,7 +8,7 @@ def calculate_velocity(x1, y1, x2, y2, t1, t2):
     distance_x = x2 - x1
     distance_y = y2 - y1
     distance_mm = (distance_x**2 + distance_y**2) ** 0.5
-
+    
     time_diff = (t2 - t1)/1000
     velocity = distance_mm / time_diff
     return velocity
@@ -22,21 +22,28 @@ def process_csv_file(csv_file):
     df = df.dropna(subset=['T', 'AVG_X', 'AVG_Y'])
 
     # Initialize variables
+    saccade_duration=[]
     fixations = []
     saccades = []
     current_fixation = []
     current_saccade = []
     velocity_threshold = 500  # mm/s
+    min_fixation_duration=150
     
     # Loop through the eye-tracking data
     for i in range(len(df) - 1):
         velocity = calculate_velocity(df['AVG_X'].iloc[i], df['AVG_Y'].iloc[i], df['AVG_X'].iloc[i+1], df['AVG_Y'].iloc[i+1], df['T'].iloc[i], df['T'].iloc[i+1])
         #print("velocity: ",velocity)
+        duration = df['T'].iloc[i+1] - df['T'].iloc[i]
         
         if velocity < velocity_threshold :
-            #print("TRUE at: ",i)
+            #print(velocity ,'TRUE')
             if current_saccade:
+                if len(current_saccade)==1:
+                   duration = df['T'].iloc[i] - df['T'].iloc[i-1]
+ 
                 saccades.append(current_saccade)
+                saccade_duration.append(duration)
                 current_saccade = []
             current_fixation.append(df[['T', 'AVG_X', 'AVG_Y']].iloc[i].values)
         else:
@@ -51,10 +58,16 @@ def process_csv_file(csv_file):
         fixations.append(current_fixation)
     if current_saccade:
         saccades.append(current_saccade)
+
+    new_saccades = []
+    for i in range(len(saccades)-1):  
+        if saccade_duration[i] > min_fixation_duration:
+            fixations.append(saccades[i])
+        else:
+            new_saccades.append(saccades[i])
+    # Update the saccades list
+    saccades = new_saccades
     
-    # Print the first 2 elements of fixations and saccades for debugging
-    #print("fixation 1:",fixations[0])
-    #print("saccades1:",saccades[0])
 
     # Extract features
     avg_fixation_durations = [fixation[-1][0] - fixation[0][0] for fixation in fixations]
@@ -69,6 +82,7 @@ def process_csv_file(csv_file):
         'Average Saccade Duration': sum(avg_saccade_durations) / len(avg_saccade_durations) if avg_saccade_durations else 0,
         'Total Fixations': total_fixations,
         'Total Saccades': total_saccades,
+        'Saccades to Fixations Ratio': total_saccades/total_fixations
     }
     return features
 
@@ -105,12 +119,12 @@ for file in csv_files:
 df_final = pd.DataFrame(data)
 
 # Reorder columns to place 'Gender' first and 'Dyslexic' last
-df_final = df_final[['Participant Code','Gender','Total Time',  'Average Fixation Duration', 'Average Saccade Duration', 'Total Fixations', 'Total Saccades', 'Dyslexic']]
+df_final = df_final[['Participant Code','Gender','Total Time',  'Average Fixation Duration', 'Average Saccade Duration', 'Total Fixations', 'Total Saccades','Saccades to Fixations Ratio', 'Dyslexic']]
 
 # Save the final DataFrame to a CSV file
 output_file = "D:/Grad Projroj/Eye_Tracking_Dataset.csv"
 df_final.to_csv(output_file, index=False, header=[
-    'Participant Code','Gender','Total_Time', 'Avg_Fix_Duration', 'Avg_Sacc_Duration', 'Total_Fix', 'Total_Sacc','Dyslexic'
+    'Participant Code','Gender','Total_Time', 'Avg_Fix_Duration', 'Avg_Sacc_Duration', 'Total_Fix', 'Total_Sacc','Sacc_Fix_Ratio','Dyslexic'
 ])
 
 # Print the final DataFrame to the console
