@@ -25,10 +25,12 @@ def process_gaze_info(gazeDataArray , ppi):
     saccades = []
     current_fixation = []
     current_saccade = []
+    saccade_duration=[]
+
     print('ppi',ppi)
-    velocity_threshold = 250 # px/s 
+    velocity_threshold =(500*ppi)/25.4 # px/s 
     print('Velocity Threshold:',velocity_threshold)
-    min_fixation_duration = 50  # milliseconds
+    min_fixation_duration = 150 # milliseconds
     print('Duration Threshold:',min_fixation_duration)
     
     # Loop through the eye-tracking data
@@ -39,7 +41,11 @@ def process_gaze_info(gazeDataArray , ppi):
         if velocity < velocity_threshold :
             print(velocity ,'TRUE')
             if current_saccade:
+                if len(current_saccade)==1:
+                   duration = df['timestamp'].iloc[i] - df['timestamp'].iloc[i-1]
+  
                 saccades.append(current_saccade)
+                saccade_duration.append(duration)
                 current_saccade = []
             current_fixation.append(df[['timestamp', 'x', 'y']].iloc[i].values)
         else:
@@ -55,18 +61,16 @@ def process_gaze_info(gazeDataArray , ppi):
     if current_saccade:
         saccades.append(current_saccade)
 
-    new_saccades = []   
-    #check saccade duration    
-    for saccade in saccades:
-        saccade_duration=saccade[-1][0] - saccade[0][0]
-        if saccade_duration > min_fixation_duration:
-            fixations.append(saccade)
+    
+    new_saccades = []
+    for i in range(len(saccades)-1):  
+        print('saccade_duration', saccade_duration[i])
+        if saccade_duration[i] > min_fixation_duration:
+            fixations.append(saccades[i])
         else:
-            new_saccades.append(saccade)
-
+            new_saccades.append(saccades[i])
     # Update the saccades list
     saccades = new_saccades
-            
    
     # Extract features
     avg_fixation_durations = [fixation[-1][0] - fixation[0][0] for fixation in fixations]
