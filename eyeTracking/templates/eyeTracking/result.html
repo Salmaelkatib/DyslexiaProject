@@ -1,0 +1,18 @@
+{% extends "authentication/base.html" %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'eyeTracking/css/result.css' %}">
+    <div class="container">
+        <div class="card w-55">
+            <div class="card-body">
+                <h1 class="card-title"><strong>Dyadapt Eye Tracking Screening Test</strong></h1>
+                <p class="date">Date:    {{ date }}</p> 
+                <div class="result">{{ result }}</div>
+                <div class="adaptation-container">
+                    <p>Do you want reading to be easier?</p>
+                    <button id="adaptationBtn">Go to adaptation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

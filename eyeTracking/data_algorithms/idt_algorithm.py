@@ -8,7 +8,7 @@ def calculate_dispersion(gaze_points):
     dispersion = (max(x_coords) - min(x_coords)) + (max(y_coords) - min(y_coords))
     return dispersion
 
-def process_gaze_info(gazeDataArray , ppi):
+def process_gaze_info(gazeDataArray):
 
     dispersion_threshold=33
 
@@ -49,7 +49,6 @@ def process_gaze_info(gazeDataArray , ppi):
 
     # Construct feature dictionary
     features = {
-
         'Average Fixation Duration': sum(avg_fixation_durations) / len(avg_fixation_durations) if avg_fixation_durations else 0,
         'Average Saccade Duration': sum(avg_saccade_durations) / len(avg_saccade_durations) if avg_saccade_durations else 0,
         'Total Fixations': total_fixations,

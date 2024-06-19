@@ -58,6 +58,6 @@
   <!-- Embed another HTML page containing the stopTracking button to ensure its responsiveness when eyeTracking is active -->
   <iframe id="embeddedPage" src="{% url 'eyeTracking:stopTracking' %}"></iframe>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="{% static 'eyeTracking/js/eyeTracking.js' %}" type="module"></script>
+  <script src="{% static 'eyeTracking/js/eyeTracking.js' %}" type="module" id="myScript" data-url="{% url 'eyeTracking:result' %}"></script>
   </body>
 </html>

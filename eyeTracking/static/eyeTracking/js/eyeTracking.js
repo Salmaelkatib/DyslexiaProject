@@ -89,6 +89,8 @@ async function main() {
         seeSoInstance.stopTracking();
         // send the gazeDataArray 
         console.log(gazeDataArray);
-        sendGazeData(gazeDataArray , window.location.href , ppi);
+        sendGazeData(gazeDataArray , window.location.href);
+        window.location.href = document.getElementById("myScript").getAttribute("data-url");
         });
   })()
+  
