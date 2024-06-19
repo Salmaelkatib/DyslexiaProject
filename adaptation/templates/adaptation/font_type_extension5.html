@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{%extends "adaptation/base.html"%}
+{%load static%}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <style>
+    body, html {
+        font-family: Helvetica; 
+    }
+  
+    .container {
+        font-family: Helvetica; 
+    }
+  
+    #calibrationButton {
+        display: none;
+    }
+  </style>
+  <body>
+    {% block scripts %}
+    <script src="{%static 'adaptation/js/eyeTracking.js'%}" type="module"
+   id="myScript" data-url="{% url 'adaptation:font_type_extension6' %}"></script>
+  {% endblock %}
+
+    {%endblock%}
+  </body>
+</html>

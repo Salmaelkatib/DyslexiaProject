@@ -13,7 +13,11 @@ def calculate_velocity(x1, y1, x2, y2, t1, t2):
  
 # Function to process a single CSV file
 def process_gaze_info(gazeDataArray):
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> f50b69e1332e04703e2bc2333e3b8e47a610249d
      # Convert the array of dictionaries into a DataFrame
     df = pd.DataFrame(gazeDataArray)
    
@@ -26,8 +30,13 @@ def process_gaze_info(gazeDataArray):
     current_fixation = []
     current_saccade = []
     saccade_duration=[]
+<<<<<<< HEAD
  
     velocity_threshold =350 # px/s
+=======
+
+    velocity_threshold =500 # px/s 
+>>>>>>> f50b69e1332e04703e2bc2333e3b8e47a610249d
     print('Velocity Threshold:',velocity_threshold)
     min_fixation_duration = 100 # milliseconds
     print('Duration Threshold:',min_fixation_duration)

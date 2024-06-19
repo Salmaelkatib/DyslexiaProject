@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{%extends "adaptation/base.html"%}
+{%load static%}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <style>
+    @font-face {
+        font-family: 'Courier';
+        src: url('{% static "adaptation/fonts/CourierPrime-Regular.ttf" %}') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+  
+    body, html {
+        font-family: 'Courier', Arial, sans-serif;
+    }
+  
+    .container {
+        font-family: 'Courier';
+    }
+  
+    #calibrationButton {
+        display: none;
+    }
+  </style>
+  <body>
+    {% block scripts %}
+    <script src="{%static 'adaptation/js/eyeTracking.js'%}" type="module"
+   id="myScript" data-url="{% url 'adaptation:font_type_extension4' %}"></script>
+  {% endblock %}
+    {%endblock%}
+  </body>
+</html>

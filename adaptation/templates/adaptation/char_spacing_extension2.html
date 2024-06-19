@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{%extends "adaptation/base.html"%}
+{%load static%}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <style>
+    body, html {
+        letter-spacing: 0.17em;
+    }
+  
+    .container {
+        letter-spacing: 0.17em;
+    }
+  
+    #calibrationButton {
+        display: none;
+    }
+  </style>
+  <body>
+    {% block scripts %}
+  {% endblock %}
+
+    {%endblock%}
+  </body>
+</html>

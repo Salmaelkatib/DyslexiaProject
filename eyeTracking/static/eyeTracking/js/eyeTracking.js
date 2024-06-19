@@ -90,7 +90,10 @@ async function main() {
         // send the gazeDataArray 
         console.log(gazeDataArray);
         sendGazeData(gazeDataArray , window.location.href);
+<<<<<<< HEAD
         window.location.href = document.getElementById("myScript").getAttribute("data-url");
+=======
+>>>>>>> f50b69e1332e04703e2bc2333e3b8e47a610249d
         });
   })()
   
