@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{%extends "adaptation/base.html"%}
+{%load static%}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <style>
+     body, html {
+        background-color: #eddd6e;
+    }
+    .container {
+        background-color: #eddd6e;
+    }
+    #calibrationButton {
+        display: none;
+    }
+  </style>
+  <body>
+    {% block scripts %}
+    <script src="{%static 'adaptation/js/eyeTracking.js'%}" type="module"
+   id="myScript" data-url="{% url 'adaptation:bg_extension3' %}"></script>
+  {% endblock %}
+    {%endblock%}
+  </body>
+</html>

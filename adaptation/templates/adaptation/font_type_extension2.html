@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{%extends "adaptation/base.html"%}
+{%load static%}
+{%block content%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <style>
+    @font-face {
+        font-family: 'CMU';
+        src: url('{% static "adaptation/fonts/cmu.bright-roman.ttf" %}') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+  
+    body, html {
+        font-family: 'CMU', Arial, sans-serif;
+    }
+  
+    .container {
+        font-family: 'CMU';
+    }
+  
+    #calibrationButton {
+        display: none;
+    }
+  </style>
+  <body>
+    {% block scripts %}
+    <script src="{%static 'adaptation/js/eyeTracking.js'%}" type="module"
+   id="myScript" data-url="{% url 'adaptation:font_type_extension3' %}"></script>
+  {% endblock %}
+    {%endblock%}
+  </body>
+</html>
