@@ -41,13 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'corsheaders',
+    'channels',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gamified_test',
     'authentication',
-    'eyeTracking'
+    'eyeTracking',
+    'adaptation'
 ]
 
 MIDDLEWARE = [
@@ -82,7 +84,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'dyslexia_project.wsgi.application'
-
+ASGI_APPLICATION = 'dyslexia_project.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -142,6 +144,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'gamified_test/static'),
     os.path.join(BASE_DIR, 'eyeTracking/static'),
+    os.path.join(BASE_DIR, 'adaptation/static'),
 )
 
 # Default primary key field type

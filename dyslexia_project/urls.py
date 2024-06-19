@@ -24,5 +24,6 @@ urlpatterns = [
     path('test/', include('gamified_test.urls' , namespace='gamified_test')),
     path('authentication/', include('authentication.urls' , namespace= 'authentication')),
     path('eyeTracking/', include('eyeTracking.urls' , namespace= 'eyeTracking')),
+    path('adaptation/', include('adaptation.urls' , namespace= 'adaptation')),
     path('logout/', views.user_logout, name='logout'),
 ]
