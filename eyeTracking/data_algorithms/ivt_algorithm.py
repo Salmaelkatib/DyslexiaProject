@@ -13,11 +13,7 @@ def calculate_velocity(x1, y1, x2, y2, t1, t2):
  
 # Function to process a single CSV file
 def process_gaze_info(gazeDataArray):
-<<<<<<< HEAD
  
-=======
-
->>>>>>> f50b69e1332e04703e2bc2333e3b8e47a610249d
      # Convert the array of dictionaries into a DataFrame
     df = pd.DataFrame(gazeDataArray)
    
@@ -29,32 +25,19 @@ def process_gaze_info(gazeDataArray):
     saccades = []
     current_fixation = []
     current_saccade = []
-    saccade_duration=[]
-<<<<<<< HEAD
  
-    velocity_threshold =350 # px/s
-=======
-
-    velocity_threshold =500 # px/s 
->>>>>>> f50b69e1332e04703e2bc2333e3b8e47a610249d
+    velocity_threshold =200 # px/s
     print('Velocity Threshold:',velocity_threshold)
-    min_fixation_duration = 100 # milliseconds
-    print('Duration Threshold:',min_fixation_duration)
-   
+
     # Loop through the eye-tracking data
     for i in range(len(df) - 1):
         velocity = calculate_velocity(df['x'].iloc[i], df['y'].iloc[i], df['x'].iloc[i+1], df['y'].iloc[i+1], df['timestamp'].iloc[i], df['timestamp'].iloc[i+1])
-        duration = df['timestamp'].iloc[i+1] - df['timestamp'].iloc[i]
  
         if velocity < velocity_threshold :
             print(velocity ,'TRUE')
             if current_saccade:
-                if len(current_saccade)==1:
-                   duration = df['timestamp'].iloc[i] - df['timestamp'].iloc[i-1]
- 
-                saccades.append(current_saccade)
-                saccade_duration.append(duration)
-                current_saccade = []
+                 saccades.append(current_saccade)
+                 current_saccade = []
             current_fixation.append(df[['timestamp', 'x', 'y']].iloc[i].values)
         else:
             print(velocity ,'FALSE')
@@ -68,17 +51,6 @@ def process_gaze_info(gazeDataArray):
         fixations.append(current_fixation)
     if current_saccade:
         saccades.append(current_saccade)
- 
-   
-    new_saccades = []
-    for i in range(len(saccades)-1):  
-        print('saccade_duration', saccade_duration[i])
-        if saccade_duration[i] > min_fixation_duration:
-            fixations.append(saccades[i])
-        else:
-            new_saccades.append(saccades[i])
-    # Update the saccades list
-    saccades = new_saccades
    
     # Extract features
     avg_fixation_durations = [fixation[-1][0] - fixation[0][0] for fixation in fixations]
