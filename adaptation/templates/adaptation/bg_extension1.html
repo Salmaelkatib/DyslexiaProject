@@ -20,8 +20,8 @@
   </style>
   <body>
     {% block scripts %}
-    <script src="{%static 'adaptation/js/eyeTracking.js'%}" type="module"
-   id="myScript" data-url="{% url 'adaptation:bg_extension2' %}"></script>
+    <script src="{%static 'adaptation/js/bg_extension.js'%}" type="module"
+   id="myScript" data-url="{% url 'adaptation:bg_extension2' %}" AFD="{{AFD}}"></script>
   {% endblock %}
     
     {%endblock%}

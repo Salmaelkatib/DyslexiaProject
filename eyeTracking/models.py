@@ -9,7 +9,7 @@ class GazeData(models.Model):
     avg_saccade_duration = models.FloatField(default=0.0 , max_length=50)   
     total_fixations = models.IntegerField(default=0 , max_length=50)    #gazeInfo.y
     total_saccades = models.IntegerField(default=0 , max_length=50)
-    saccades_to_fixations = models.FloatField(default=0.0 , max_length=50)
+    sacades_to_fixations = models.FloatField(default=0.0 , max_length=50)
     result = models.CharField(max_length = 50 , default=" ")
 
     def __str__(self):

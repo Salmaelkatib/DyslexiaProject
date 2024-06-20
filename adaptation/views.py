@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from .models import adaptation_GazeData
 import json
 from eyeTracking.data_algorithms.ivt_algorithm import process_gaze_info
 
@@ -8,7 +9,8 @@ from eyeTracking.data_algorithms.ivt_algorithm import process_gaze_info
 def base(request):
     return render(request , 'adaptation/base.html')
 def bg_extension1(request):
-    return render(request , 'adaptation/bg_extension1.html')
+    AFD = adaptation_GazeData.objects.get(extention_no=1)
+    return render(request , 'adaptation/bg_extension1.html',{'AFD': AFD})
 def bg_extension2(request):
     return render(request , 'adaptation/bg_extension2.html')
 def bg_extension3(request):
@@ -47,19 +49,27 @@ def save_gaze_data(request):
         try:
             data = json.loads(request.body)
             gaze_data_array = data.get('gazeData', [])
+            extention_no = data.get('extention_no', 0)
+
             features = process_gaze_info(gaze_data_array)
             print(features)
-            # Save each gaze data entry to the database
-            # for gaze_data in gaze_data_array:
-            #     GazeData.objects.create(
-            #         timestamp=gaze_data['timestamp'],
-            #         x=gaze_data['x'],
-            #         y=gaze_data['y'],
-            #         state=gaze_data['state']
-            #     )
+            # retrieves the Player object linked to the currently authenticated user.
+            player = request.user.player
+            # Get or create GazeData object for the player
+            gaze_data, created = adaptation_GazeData.objects.get_or_create(player=player)
+
+            # Set AFD
+            gaze_data.avg_fix_duration = features['Average Fixation Duration']
+            gaze_data.extention_no = extention_no
+
+            # store data in model
+            gaze_data.save()
             return JsonResponse({'status': 'success'}, status=200)
         except json.JSONDecodeError as e:
             print("JSON decode error:", e)
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+
+    
