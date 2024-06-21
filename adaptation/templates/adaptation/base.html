@@ -43,24 +43,46 @@
         height: 100px;
         border: none;
     }
+    .button-47 {
+      align-items: center;
+      background: blue;
+      border: 0 solid #E2E8F0;
+      box-shadow: 0 10px 20px -2px rgba(0, 0, 0, 0.2), 0 6px 12px -3px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      color: #1A202C;
+      display: inline-flex;
+      font-family: Inter, sans-serif;
+      font-size: 1rem;
+      font-weight: 900; /* Make the text extra bold */
+      height: 56px;
+      justify-content: center;
+      line-height: 40px;
+      overflow-wrap: break-word;
+      padding: 24px;
+      text-decoration: none;
+      width: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+  }
   </style>
 </head>
 <body>
   <canvas id="output" style="position: fixed;"></canvas>
-  <button id="calibrationButton">Start calibration</button>
-  <div class="container">
-    <p>In a magical forest, a young girl named Lily</br>
-      lived with her family in a small wooden house.</br>
-      One day, she discovered a hidden path leading to</br>
-      a beautiful clearing. In the center stood a giant tree </br>
-      with sparkling leaves and a mysterious door carved</br>
-      into its trunk. Curious, Lily opened the door and stepped </br>
-      inside, finding herself in a world of wonder. She met a </br>
-      talking panda who guided her through the enchanting forest.</br></div>
+  <button id="calibrationButton" class="button-47" style="margin: 0 auto;">Start calibration</button>
+  
   <!-- Embed another HTML page containing the stopTracking button to ensure its responsiveness when eyeTracking is active -->
   <iframe id="embeddedPage" src="{% url 'adaptation:stopTracking' %}"></iframe>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   {% block scripts %}
+  <div class="container">
+    <p>On a sunny Wednesday, a handsome farmer stood by his house, his brown jacket</br> 
+      shielding him from the rain. He watched the boat with excitement, dreaming </br> 
+      of a thrilling adventure. The rain started to affect his mood. "I need an awesome,</br>  
+      thrilling tale to uplift me,"  he said, looking up at the sky, seeking a rainbow.</br> 
+      </br></div>
     <!-- Default script tags -->
     <script src="{% static 'adaptation/js/eyeTracking.js' %}" type="module"
       id="myScript" data-url="{% url 'adaptation:bg_extension1' %}"></script>

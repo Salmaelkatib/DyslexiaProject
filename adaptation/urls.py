@@ -23,6 +23,9 @@ urlpatterns = [
     path('char_spacing_extension2/',views.char_spacing_extension2, name='char_spacing_extension2'),
 
     path('stopTracking/',views.stopTracking, name='stopTracking'),
+
+    path('adaptation_result/',views.adaptation_result, name='adaptation_result'),
+
     re_path(r'.*save_gaze_data/$', views.save_gaze_data, name='save_gaze_data'),
 
 ]

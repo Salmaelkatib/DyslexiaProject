@@ -1,11 +1,11 @@
 // AJAX request to send gaze data to Django view
-export default function sendGazeData(gazeDataArray, currentUrl , extention_no) {
+export default function sendGazeData(gazeDataArray, currentUrl) {
     // Parse the URL and remove the calibrationData query parameter
     const urlParts = currentUrl.split('?');
     const baseUrl = urlParts[0];
     const data = JSON.stringify({ 
         gazeData: gazeDataArray,
-        extention_no: extention_no,
+        currentUrl:currentUrl,
     });
     $.ajax({
         type: "POST",

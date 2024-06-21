@@ -19,9 +19,15 @@
     }
   </style>
   <body>
+    <div class="container">
+      <p>Inside the old house, a mysterious box sat on shelves filled with dusty books. </br>
+        The computer beside it blinked with messages.  "What could be in there?" he wondered aloud.</br>  
+        He approached the box, curious.  Meanwhile, a beautiful doctor in town read a biography of </br>
+        a famous zookeeper, fascinated by their marvelous experiences with exotic animals. </br>       
+        </br></div>
     {% block scripts %}
-    <script src="{%static 'adaptation/js/bg_extension.js'%}" type="module"
-   id="myScript" data-url="{% url 'adaptation:bg_extension2' %}" AFD="{{AFD}}"></script>
+    <script src="{%static 'adaptation/js/eyeTracking.js'%}" type="module"
+   id="myScript" data-url="{% url 'adaptation:bg_extension2' %}"></script>
   {% endblock %}
     
     {%endblock%}

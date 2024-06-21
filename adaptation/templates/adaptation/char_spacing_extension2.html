@@ -21,7 +21,15 @@
     }
   </style>
   <body>
+    <div class="container">
+      He became known as the storyteller. His tales were filled with wonder and joy.</br> 
+      The box remained a symbol of his journey, reminding him of the day his life </br>
+      changed.  And so, he lived happily, sharing his stories with the world. Every </br>
+      Wednesday, he would sit by the window, reflecting on the marvels of nature.</br>
+</br></div>
     {% block scripts %}
+    <script src="{%static 'adaptation/js/eyeTracking.js'%}" type="module"
+   id="myScript" data-url="{% url 'adaptation:adaptation_result' %}"></script>
   {% endblock %}
 
     {%endblock%}

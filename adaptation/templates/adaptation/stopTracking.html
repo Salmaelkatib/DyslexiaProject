@@ -1,33 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-{%load static%}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            font-size: larger;
+            line-height: 2.0;
+            flex-grow: 1; /* Grow to fill remaining space */
+        }
+        #stopTrackingButton {
+            margin-top: 200px; /* Push buttons to the bottom */
+            margin-left: auto; /* Center horizontally */
+            margin-right: auto;
+            margin-bottom: 100px;
+        }
+        .button-47 {
+            align-items: center;
+            background: #FFFFFF;
+            border: 0 solid #E2E8F0;
+            box-shadow: 0 10px 20px -2px rgba(0, 0, 0, 0.2), 0 6px 12px -3px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            color: #1A202C;
+            display: inline-flex;
+            font-family: Inter, sans-serif;
+            font-size: 1rem;
+            font-weight: 900; /* Make the text extra bold */
+            height: 56px;
+            justify-content: center;
+            line-height: 40px;
+            overflow-wrap: break-word;
+            padding: 24px;
+            text-decoration: none;
+            width: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+    </style>
 </head>
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-    }
-    .container {
-        text-align: center;
-        font-size: larger;
-        line-height: 2.0;
-        flex-grow: 1; /* Grow to fill remaining space */
-    }
-   #stopTrackingButton{
-        margin-top: auto; /* Push buttons to the bottom */
-        margin-left: auto; /* Center horizontally */
-        margin-right: auto;
-    }
-</style>
 <body>
     <div class="container">
-        <button id="stopTrackingButton" style="margin: 0 auto;">Next</button>
+        <button id="stopTrackingButton" class="button-47" style="margin: 0 auto;">Next</button>
     </div>
 </body>
 </html>

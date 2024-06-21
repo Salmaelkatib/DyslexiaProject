@@ -80,7 +80,7 @@ async function main() {
         calibrationButton.addEventListener('click', onClickCalibrationBtn);
     }
 }
-export async function eyeTracking(url,extention_no){
+export async function eyeTracking(url){
     await main();
     // set listener for stopTracking button
     const iframe = document.getElementById('embeddedPage');
@@ -90,7 +90,7 @@ export async function eyeTracking(url,extention_no){
         seeSoInstance.stopTracking();
         // send the gazeDataArray 
         console.log(gazeDataArray);
-        sendGazeData(gazeDataArray , window.location.href,extention_no);
+        sendGazeData(gazeDataArray , window.location.href);
         // to navigate to next screen
         window.location.href = document.getElementById("myScript").getAttribute("data-url");
         });

@@ -27,20 +27,17 @@ def process_gaze_info(gazeDataArray):
     current_saccade = []
  
     velocity_threshold =200 # px/s
-    print('Velocity Threshold:',velocity_threshold)
 
     # Loop through the eye-tracking data
     for i in range(len(df) - 1):
         velocity = calculate_velocity(df['x'].iloc[i], df['y'].iloc[i], df['x'].iloc[i+1], df['y'].iloc[i+1], df['timestamp'].iloc[i], df['timestamp'].iloc[i+1])
  
         if velocity < velocity_threshold :
-            print(velocity ,'TRUE')
             if current_saccade:
                  saccades.append(current_saccade)
                  current_saccade = []
             current_fixation.append(df[['timestamp', 'x', 'y']].iloc[i].values)
         else:
-            print(velocity ,'FALSE')
             if current_fixation :
                 fixations.append(current_fixation)
                 current_fixation = []
