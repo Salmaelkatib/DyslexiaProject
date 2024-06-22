@@ -255,8 +255,7 @@ def getPredictions(data_array):
     else:
         return "error"
         
-# result page view
-def result(request):
+def getFeatures():
     # Define the order of fields for feeding into the ML model
     field_order = [
         'gender', 'isNative', 'otherlang', 'age'
@@ -290,13 +289,19 @@ def result(request):
     input_data = [data_dict[field] for field in field_order]
     data_array = np.array(input_data, dtype=float)  # Ensure the data array is of type float
 
-    result = getPredictions(data_array)
-    
-    
     # Save result in database
     setattr(game_data_instance, 'result', result)
     game_data_instance.save()
+    
+    return data_array, created_at
 
+# result page view
+def result(request):
+    
+    data_array, created_at = getFeatures()
+
+    result = getPredictions(data_array)
+    
     if (result == "High-Risk"):
         return render(request, 'gamified_test/result_highrisk.html', 
                   {'result': result ,
