@@ -292,12 +292,22 @@ def result(request):
 
     result = getPredictions(data_array)
     
+    
     # Save result in database
     setattr(game_data_instance, 'result', result)
     game_data_instance.save()
 
-    return render(request, 'gamified_test/result.html', 
+    if (result == "High-Risk"):
+        return render(request, 'gamified_test/result_highrisk.html', 
                   {'result': result ,
                    'date': created_at})
+    
+    else:
+        return render(request, 'gamified_test/result_lowrisk.html', 
+                  {'result': result ,
+                   'date': created_at})
+
+
+    
 
 
