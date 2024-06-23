@@ -66,7 +66,7 @@ async function main() {
         await seeSoInstance.init(licenseKey,
             async () => {
                 // Disable the calibration button
-                document.getElementById('calibrationButton').disabled = true;
+                //document.getElementById('calibrationButton').disabled = true;
                 await seeSoInstance.setCalibrationData(calibrationData);
                 await seeSoInstance.startTracking(onGaze);
                 await seeSoInstance.setTrackingFps(100);
@@ -77,7 +77,7 @@ async function main() {
     }  else {
         console.log('No calibration data given.');
         const calibrationButton = document.getElementById('calibrationButton');
-        calibrationButton.addEventListener('click', onClickCalibrationBtn);
+        calibrationButton.addEventListener('click', onClickCalibrationBtn);  
     }
 }
 export async function eyeTracking(url){
@@ -98,4 +98,6 @@ export async function eyeTracking(url){
 
 (async () => {
     eyeTracking(document.getElementById("myScript").getAttribute("data-url"),0); 
+    const calibrationButton = document.getElementById('calibrationButton');
+    calibrationButton.addEventListener('click', onClickCalibrationBtn);
 })()

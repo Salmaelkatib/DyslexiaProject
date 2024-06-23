@@ -3,7 +3,7 @@ from authentication.models import Player
 
 class GazeData(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    player = models.OneToOneField(Player , on_delete=models.CASCADE)
+    player = models.OneToOneField(Player , on_delete=models.CASCADE,null=True)
     # eye movement features
     avg_fix_duration = models.FloatField(default=0.0 , max_length=50)
     avg_saccade_duration = models.FloatField(default=0.0 , max_length=50)   
