@@ -1,37 +1,65 @@
 {% extends "authentication/base.html" %}
 {% load static %}
 {% block content %}
-    <link rel="stylesheet" href="{% static 'adaptation/css/adaptation_result.css' %}">
-    <div class="container">
-        <div class="card w-55">
-            <div class="card-body">
-                <h1 class="card-title"><strong>Dyadapt Adaptation Result</strong></h1>
-                <div class="result">
-                    <p>Background Color: {{ result.min_bg_color }}</p>
-                    <p>Font Type: {{ result.min_font_type }}</p>
-                    <p>Font Color: {{ result.min_font_color }}</p>
-                    <p>Character Spacing: {{ result.min_char_spacing }}</p>
-                </div>
-                <div class="adaptation-container">
-                    <p>Do you want to set these values as default while browsing?</p>
-                    <button id="adaptationBtn">Download Extension</button>
-                </div>
+<link rel="stylesheet" href="{% static 'adaptation/css/adaptation_result.css' %}">
+<div class="container">
+    <div class="card w-55">
+        <div class="card-body">
+            <h1 class="card-title"><strong>Dyadapt Adaptation Result</strong></h1>
+            <div class="result">
+                <p>Background Color: {{ result.bg_color_name }}</p>
+                <p>Font Type: {{ result.min_font_type }}</p>
+                <p>Font Color: {{ result.font_color_name }}</p>
+                <p>Character Spacing: {{ result.min_char_spacing }}</p>
+            </div>
+            <div class="adaptation-container">
+                <p>Do you want to set these values as default while browsing?</p>
+                <button id="adaptationBtn">Download Extension</button>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Get values from the context variables
-            var minBgColor = "{{ result.min_bg_color }}";
-            var minFontType = "{{ result.min_font_type }}";
-            var minFontColor = "{{ result.min_font_color }}";
-            var minCharSpacing = "{{ result.min_char_spacing }}";
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get values from the context variables
+        var minBgColor = "{{ result.min_bg_color }}";
+        var minFontType = "{{ result.min_font_type }}";
+        var minFontColor = "{{ result.min_font_color }}";
+        var minCharSpacing = "{{ result.min_char_spacing }}";
 
-            // Apply these values to the desired elements
-            document.body.style.backgroundColor = minBgColor;
-            document.body.style.fontFamily = minFontType;
-            document.body.style.color = minFontColor;
-            document.body.style.letterSpacing = minCharSpacing;
+        // Apply these values to the desired elements
+        document.body.style.backgroundColor = minBgColor;
+        document.body.style.fontFamily = minFontType;
+        document.body.style.color = minFontColor;
+        document.body.style.letterSpacing = minCharSpacing;
+
+        // Define the sendStyles function
+        function sendStyles(minBgColor, minFontType, minCharSpacing, minFontColor) {
+            const extensionId = 'gdpepillkbmjoafdmakfgbodpafilpne'; // Replace with your extension's ID
+            const styles = {
+                bgColor: minBgColor,
+                fontType: minFontType,
+                charSpacing: minCharSpacing,
+                fontColor: minFontColor
+            };
+
+            if (chrome && chrome.runtime && chrome.runtime.sendMessage) {
+                chrome.runtime.sendMessage(extensionId, { action: 'setDefaultStyles', styles: styles }, response => {
+                    if (response && response.status === 'success') {
+                        alert('Styles sent successfully!');
+                    } else {
+                        alert('Failed to send styles.');
+                    }
+                });
+            } else {
+                alert('This feature is only available in the Chrome extension context.');
+            }
+        }
+
+        // Add event listener to the button
+        document.getElementById('adaptationBtn').addEventListener('click', function() {
+            sendStyles(minBgColor, minFontType, minCharSpacing, minFontColor);
         });
-    </script>
+    });
+</script>
 {% endblock %}
