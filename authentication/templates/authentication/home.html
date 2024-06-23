@@ -15,14 +15,15 @@
     }
 </style>
 
-<div class="container-fluid">
     <div class="jumbotron">
         <div class="jumbotron-content">
             <h1 class="display-4">What is Dyadapt?</h1>
             <p class="lead">
-                With Dyadapt you will improve your reading experience.
-                You will also have access to the Dyadapt screening test that allows you, in just 15 minutes, to detect if your child is dyslexic or not , 
-                through playing a game personalized based on 24 cognitive skills targeting both cognitive weaknesses and strengths. 
+            With Dyadapt, you will improve your reading experience. 
+            You will also have access to the Dyadapt screening test that allows you, in just 15 minutes,to detect if your child is dyslexic or not, 
+            through playing a game personalized based on 24 cognitive skills targeting both cognitive weaknesses and strengths.   
+            Additionally, Dyadapt uses advanced eye-tracking technology to help identify dyslexia by analyzing reading patterns and eye movements, providing a comprehensive and accurate screening process. 
+            We also offer a browser extension that enhances readability for dyslexics by adjusting webpage content for a better browsing experience.
             </p>
             {% if user.is_authenticated%}
             <a class="btn btn-primary btn-lg" href="{% url 'gamified_test:q1Screen' %}" role="button">Start Test</a>
@@ -54,6 +55,5 @@
             </div>
         </div>
         </div>
-    </div>
     </div>
 {%endblock%}

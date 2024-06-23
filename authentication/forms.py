@@ -3,18 +3,25 @@ from authentication.models import Player,Parent_Teacher
 from django import forms
 
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget= forms.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput())
 
-    class Meta():
+    class Meta:
         model = User
-        fields = ('username' , 'email' , 'password')
-    
+        fields = ('username', 'email', 'password')
+
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
-        for field in iter(self.fields):
+        # Update attributes for username field separately
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'usernameInputId',
+            'aria-describedby': 'usernameHelp',
+        })
+        # Update attributes for other fields
+        for field in ['email', 'password']:
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
-        })
+            })
 
 class PlayerForm(forms.ModelForm):
      YES_NO_CHOICES = [
