@@ -1,10 +1,12 @@
 import EasySeeSo from './easy-seeso.js';
 import showGaze from './showGaze.js';
 import sendGazeData from './AJAXModule.js';
+import { CalibrationData } from './seeso.min.js';
 
 const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
 let seeSoInstance;
 let gazeDataArray = [];
+let calibrationData;
 export let ppi;
 
 // In redirected page
@@ -49,7 +51,7 @@ function onGaze(gazeInfo) {
     showGaze(gazeInfo);
 }
 async function main() {
-    const calibrationData = parseCalibrationDataInQueryString();
+     calibrationData = parseCalibrationDataInQueryString();
 
     if (calibrationData) {
         seeSoInstance = new EasySeeSo();
@@ -58,6 +60,7 @@ async function main() {
                 // Disable the calibration button
                 document.getElementById('calibrationButton').disabled = true;
                 await seeSoInstance.setCalibrationData(calibrationData);
+                localStorage.setItem('calibrationData', calibrationData);
                 await seeSoInstance.startTracking(onGaze);
                 await seeSoInstance.setTrackingFps(100);
                 console.log('Eye tracking started.');
@@ -78,7 +81,6 @@ async function main() {
         calibrationButton.addEventListener('click',onClickCalibrationBtn);
     }
 }
-
 (async () => {
     await main();
     // set listener for stopTracking button
@@ -90,7 +92,10 @@ async function main() {
         // send the gazeDataArray 
         console.log(gazeDataArray);
         sendGazeData(gazeDataArray , window.location.href);
-        window.location.href = document.getElementById("myScript").getAttribute("data-url");
+        alert(`Before Clear: `,calibrationData);
+        localStorage.clear();
+        alert(`After Clear: `,calibrationData)
+        //window.location.href = document.getElementById("myScript").getAttribute("data-url");
         });
   })()
   

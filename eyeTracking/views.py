@@ -81,7 +81,7 @@ def result(request):
     data_dict = {}
     # Retrieve data of the current authenticated user from the GazeData table
     player = request.user.player
-    gaze_data_instance = GazeData.objects.get(player=player)
+    gaze_data_instance,created_at= GazeData.objects.get_or_create(player=player)
     
     # Access data of player
     gender = gaze_data_instance.player.gender
