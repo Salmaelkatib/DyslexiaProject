@@ -5,7 +5,6 @@ import sendGazeData from './AJAXModule.js';
 const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
 let seeSoInstance;
 let gazeDataArray = [];
-const calibrationData =null;
 
 // In redirected page
 function parseCalibrationDataInQueryString() {
@@ -65,8 +64,6 @@ async function main() {
         seeSoInstance = new EasySeeSo();
         await seeSoInstance.init(licenseKey,
             async () => {
-                // Disable the calibration button
-                document.getElementById('calibrationButton').disabled = true;
                 await seeSoInstance.setCalibrationData(calibrationData);
                 await seeSoInstance.startTracking(onGaze);
                 await seeSoInstance.setTrackingFps(100);

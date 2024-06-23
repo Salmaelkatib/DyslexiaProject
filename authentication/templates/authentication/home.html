@@ -14,7 +14,6 @@
         width: 100%;
     }
 </style>
-
     <div class="jumbotron">
         <div class="jumbotron-content">
             <h1 class="display-4">What is Dyadapt?</h1>
@@ -32,28 +31,93 @@
         </div>
     </div>
     <div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-            <h3 class="card-title"><strong>For Parents</strong></h3>
-            <p class="card-text">You can assess you child's learning abilities and know whether he is at risk of dyslexia or not ,
-                through a fun game, withot having to go to a speacialist.
-                Your child will overcome his difficulties in reading through our provided adaptive tools.
-            </p>
-            <a href="#" class="btn btn-primary">Learn more</a>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><strong>For Parents</strong></h3>
+                        <p class="card-text">You can assess you child's learning abilities and know whether he is at risk of dyslexia or not ,
+                            through a fun game, withot having to go to a speacialist.
+                            Your child will overcome his difficulties in reading through our provided adaptive tools.
+                        </p>
+                        <a href="#" class="btn btn-primary">Learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><strong>For Schools</strong></h3>
+                        <p class="card-text">We offer a cutting-edge and scientifically validated early dyslexia screening solution to eliminate school failure due to reading-writing difficulties.
+                            You will optimize the center's resources, through the automatic customization of exercises.</p>
+                        <a href="#" class="btn btn-primary">Learn more</a>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-        <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-            <h3 class="card-title"><strong>For Schools</strong></h3>
-            <p class="card-text">We offer a cutting-edge and scientifically validated early dyslexia screening solution to eliminate school failure due to reading-writing difficulties.
-                You will optimize the center's resources, through the automatic customization of exercises.</p>
-            <a href="#" class="btn btn-primary">Learn more</a>
+        <hr style="margin-top: 50px;">
+        <h1 style="margin-top: 50px; margin-bottom: 20px;"><strong>What do we provide?</strong></h1>
+
+        <div class="card-deck">
+            <div class="card">
+                <img src="{% static 'authentication/game-img.png'%}" class="card-img-top" alt="..." height="230px">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>Gamified Test</strong></h3>
+                    <p class="card-text">Dyslexia screening using 32 linguistic exercises to test different cognitive skills.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'authentication/eye-tracking.png'%}" class="card-img-top" alt="..." height="230px">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>Eye Tracking</strong></h3>
+                    <p class="card-text">Dyslexia screening by tracking raw eye movements using seeso eye tracker on webcam.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="{% static 'authentication/Adaptation-wallpaper.png'%}" class="card-img-top" alt="..." height="230px">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>Adaptation</strong></h3>
+                    <p class="card-text"> Enhance reading experience for dyslexics by offering a browser extension that adjusts webpage content settings for a better browsing experience.</p>
+                </div>
             </div>
         </div>
-        </div>
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{% static 'authentication/game-img.png'%}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h3 style="color: white;"><strong>Gamified Test</strong></h3>
+                  <h5 style="color: white;">Dyslexia screening using 32 linguistic exercises to test different cognitive skills.</h5>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'authentication/eye-tracking.png'%}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5 style="color: black;"><strong>Eye Tracking</strong></h5>
+                  <p style="color: black;">Dyslexia screening by tracking raw eye movements using seeso eye tracker on webcam.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="{% static 'authentication/Adaptation-wallpaper.png'%}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5 style="color: black;">Reading Adaptation</h5>
+                  <p style="color: black;"> Enhance reading experience for dyslexics by offering a browser extension that adjusts webpage content settings for a better browsing experience.</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </button>
+          </div>
     </div>
 {%endblock%}
