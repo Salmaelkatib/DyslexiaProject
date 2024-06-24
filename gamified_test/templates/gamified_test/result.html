@@ -9,14 +9,14 @@
                 <p class="date">Date: {{ date }}</p>
                 <div class="result">Result: {{ result }}</div>
                 {% if result == 'High-Risk' %}
-                    <div class="adaptation-container">
-                        <p>Do you want reading to be easier?</p>
-                        <a href="{% url 'adaptation:base' %}" id="goToAdaptationBtn" class="btn btn-primary" role="button">Go to adaptation</a>
-                    </div>
-                {% elif result == 'Low-Risk' %}
                     <div class="eyetracking-container">
                         <p>Proceed to eye-tracking for further assessment.</p>
                         <a href="{% url 'eyeTracking:eyeTracking' %}" id="goToEyeTrackingBtn" class="btn btn-primary" role="button">Proceed to Eye Tracking</a>
+                    </div>
+                {% elif result == 'Low-Risk' %}
+                    <div class="adaptation-container">
+                        <p>Do you want reading to be easier?</p>
+                        <a href="{% url 'adaptation:base' %}" id="goToAdaptationBtn" class="btn btn-primary" role="button">Go to adaptation</a>
                     </div>
                 {% else %}
                     <p>Invalid result value</p>
