@@ -12,6 +12,8 @@ colors={
     '#eddd6e':'Orange',
     '#f8fd89':'Yellow',
     '#fffdd0':'Cream',
+    '#0000ff':'Blue',
+    '#000000':'Black'
 }
 
 feature_files = {
@@ -38,8 +40,8 @@ feature_files = {
     'char_spacing_extension2': '0.17em',
 
     #text color files
-    'text_color_base':'Black',
-    'text_color_extension': 'Blue',
+    'text_color_base':'#000000',
+    'text_color_extension': '#0000ff',
 }
 
 # Create your views here.
@@ -86,13 +88,17 @@ def adaptation_result(request):
     try:
         variations = adaptation_GazeData.objects.get(user=user)
         result = {
-            'min_bg_color': colors[variations.min_bg_color],
+            'bg_color_name':colors[variations.min_bg_color],
+            'font_color_name':colors[variations.min_font_color],
+            'min_bg_color': variations.min_bg_color,
             'min_font_type': variations.min_font_type,
             'min_font_color': variations.min_font_color,
             'min_char_spacing': variations.min_char_spacing,
         }
     except adaptation_GazeData.DoesNotExist:
         result = {
+            'bg_color_name':'N/A',
+            'font_color_name':'N/A',
             'min_bg_color': 'N/A',
             'min_font_type': 'N/A',
             'min_font_color': 'N/A',

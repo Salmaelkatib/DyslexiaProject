@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from .models import GazeData
+from gamified_test.models import Player
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 import numpy as np
 import json
@@ -22,8 +24,16 @@ def save_gaze_data(request):
             features = process_gaze_info(gaze_data_array)
             print(features)
 
-            # retrieves the Player object linked to the currently authenticated user.
-            player = request.user.player
+            username = request.user.username
+            user, created = User.objects.get_or_create(username=username, defaults={'password': request.user.password})
+            if created:
+                # Set the password using set_password to ensure it is hashed
+                user.set_password(request.user.password)
+                user.save()
+            
+            # Get or create a player and associate with the user
+            player, created = Player.objects.get_or_create(user=user)
+
             # Get or create GazeData object for the player
             gaze_data, created = GazeData.objects.get_or_create(player=player)
 
@@ -79,9 +89,18 @@ def result(request):
     ]
  
     data_dict = {}
-    # Retrieve data of the current authenticated user from the GazeData table
-    player = request.user.player
-    gaze_data_instance = GazeData.objects.get(player=player)
+    username = request.user.username
+    user, created = User.objects.get_or_create(username=username, defaults={'password': request.user.password})
+    if created:
+        # Set the password using set_password to ensure it is hashed
+        user.set_password(request.user.password)
+        user.save()
+    
+    # Get or create a player and associate with the user
+    player, created = Player.objects.get_or_create(user=user)
+
+    # Get or create GazeData object for the player
+    gaze_data_instance, created = GazeData.objects.get_or_create(player=player)
     
     # Access data of player
     gender = gaze_data_instance.player.gender

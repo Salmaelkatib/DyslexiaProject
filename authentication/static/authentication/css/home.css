@@ -1,3 +1,4 @@
+
 .jumbotron::before {
     content: "";
     position: absolute;
@@ -19,4 +20,25 @@
 .jumbotron h1 {
     font-weight: bold;
     color: #fff;
+}
+.card-deck {
+    margin-top: 50px; /* Adjust top margin for the card deck */
+}
+
+.card {
+    margin-bottom: 30px; /* Adjust bottom margin for each card */
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1.1rem;
+}
+#carouselExampleCaptions {
+    margin-top: 50px; /* Adjust margin top as needed */
+    max-width: 100%; /* Adjust maximum width of the carousel */
+    margin-left: auto; /* Center align carousel */
+    margin-right: auto; /* Center align carousel */
 }

@@ -5,7 +5,6 @@ import sendGazeData from './AJAXModule.js';
 const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
 let seeSoInstance;
 let gazeDataArray = [];
-const calibrationData =null;
 
 // In redirected page
 function parseCalibrationDataInQueryString() {
@@ -65,8 +64,6 @@ async function main() {
         seeSoInstance = new EasySeeSo();
         await seeSoInstance.init(licenseKey,
             async () => {
-                // Disable the calibration button
-                document.getElementById('calibrationButton').disabled = true;
                 await seeSoInstance.setCalibrationData(calibrationData);
                 await seeSoInstance.startTracking(onGaze);
                 await seeSoInstance.setTrackingFps(100);
@@ -77,7 +74,7 @@ async function main() {
     }  else {
         console.log('No calibration data given.');
         const calibrationButton = document.getElementById('calibrationButton');
-        calibrationButton.addEventListener('click', onClickCalibrationBtn);
+        calibrationButton.addEventListener('click', onClickCalibrationBtn);  
     }
 }
 export async function eyeTracking(url){
@@ -92,10 +89,12 @@ export async function eyeTracking(url){
         console.log(gazeDataArray);
         sendGazeData(gazeDataArray , window.location.href);
         // to navigate to next screen
-        window.location.href = document.getElementById("myScript").getAttribute("data-url");
+        window.location.href = url;
         });
 }
 
 (async () => {
-    eyeTracking(document.getElementById("myScript").getAttribute("data-url"),0); 
+    eyeTracking(document.getElementById("myScript").getAttribute("data-url")); 
+    const calibrationButton = document.getElementById('calibrationButton');
+    calibrationButton.addEventListener('click', onClickCalibrationBtn);
 })()

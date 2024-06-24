@@ -14,15 +14,15 @@
         width: 100%;
     }
 </style>
-
-<div class="container-fluid">
     <div class="jumbotron">
         <div class="jumbotron-content">
             <h1 class="display-4">What is Dyadapt?</h1>
             <p class="lead">
-                With Dyadapt you will improve your reading experience.
-                You will also have access to the Dyadapt screening test that allows you, in just 15 minutes, to detect if your child is dyslexic or not , 
-                through playing a game personalized based on 24 cognitive skills targeting both cognitive weaknesses and strengths. 
+            With Dyadapt, you will improve your reading experience. 
+            You will also have access to the Dyadapt screening test that allows you, in just 15 minutes,to detect if your child is dyslexic or not, 
+            through playing a game personalized based on 24 cognitive skills targeting both cognitive weaknesses and strengths.   
+            Additionally, Dyadapt uses advanced eye-tracking technology to help identify dyslexia by analyzing reading patterns and eye movements, providing a comprehensive and accurate screening process. 
+            We also offer a browser extension that enhances readability for dyslexics by adjusting webpage content for a better browsing experience.
             </p>
             {% if user.is_authenticated%}
             <a class="btn btn-primary btn-lg" href="{% url 'gamified_test:q1Screen' %}" role="button">Start Test</a>
@@ -31,29 +31,56 @@
         </div>
     </div>
     <div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-            <h3 class="card-title"><strong>For Parents</strong></h3>
-            <p class="card-text">You can assess you child's learning abilities and know whether he is at risk of dyslexia or not ,
-                through a fun game, withot having to go to a speacialist.
-                Your child will overcome his difficulties in reading through our provided adaptive tools.
-            </p>
-            <a href="#" class="btn btn-primary">Learn more</a>
+        <h1 style="margin-top: 50px; margin-bottom: 20px;"><strong>What do we provide?</strong></h1>
+        <div class="card-deck">
+            <div class="card">
+                <img src="{% static 'authentication/game-img.png'%}" class="card-img-top" alt="..." height="230px">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>Gamified Test</strong></h3>
+                    <p class="card-text">Dyslexia screening using 32 linguistic exercises to test different cognitive skills.</p>
+                </div>
             </div>
-        </div>
-        </div>
-        <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-            <h3 class="card-title"><strong>For Schools</strong></h3>
-            <p class="card-text">We offer a cutting-edge and scientifically validated early dyslexia screening solution to eliminate school failure due to reading-writing difficulties.
-                You will optimize the center's resources, through the automatic customization of exercises.</p>
-            <a href="#" class="btn btn-primary">Learn more</a>
+            <div class="card">
+                <img src="{% static 'authentication/eye-tracking2.png'%}" class="card-img-top" alt="..." height="230px">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>Eye Tracking</strong></h3>
+                    <p class="card-text">Dyslexia screening by tracking raw eye movements using seeso eye tracker on webcam.</p>
+                </div>
             </div>
-        </div>
+            <div class="card">
+                <img src="{% static 'authentication/Adaptation.png'%}" class="card-img-top" alt="..." height="230px">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>Adaptation</strong></h3>
+                    <p class="card-text"> Enhance reading experience for dyslexics by offering a browser extension that adjusts webpage content settings for a better browsing experience.</p>
+                </div>
+            </div>
         </div>
     </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><strong>For Parents</strong></h3>
+                        <p class="card-text">You can assess you child's learning abilities and know whether he is at risk of dyslexia or not ,
+                            through a fun game, withot having to go to a speacialist.
+                            Your child will overcome his difficulties in reading through our provided adaptive tools.
+                        </p>
+                        <a href="#" class="btn btn-primary">Learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title"><strong>For Schools</strong></h3>
+                        <p class="card-text">We offer a cutting-edge and scientifically validated early dyslexia screening solution to eliminate school failure due to reading-writing difficulties.
+                            You will optimize the center's resources, through the automatic customization of exercises.</p>
+                        <a href="#" class="btn btn-primary">Learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {%endblock%}

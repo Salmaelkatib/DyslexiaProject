@@ -1,10 +1,12 @@
 import EasySeeSo from './easy-seeso.js';
 import showGaze from './showGaze.js';
 import sendGazeData from './AJAXModule.js';
+import { CalibrationData } from './seeso.min.js';
 
 const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
 let seeSoInstance;
 let gazeDataArray = [];
+let calibrationData;
 export let ppi;
 
 // In redirected page
@@ -48,9 +50,9 @@ function onGaze(gazeInfo) {
     // To show gaze dot on screen
     showGaze(gazeInfo);
 }
-async function main() {
-    const calibrationData = parseCalibrationDataInQueryString();
 
+async function main() {
+    calibrationData = parseCalibrationDataInQueryString();
     if (calibrationData) {
         seeSoInstance = new EasySeeSo();
         await seeSoInstance.init(licenseKey,
@@ -58,6 +60,7 @@ async function main() {
                 // Disable the calibration button
                 document.getElementById('calibrationButton').disabled = true;
                 await seeSoInstance.setCalibrationData(calibrationData);
+                localStorage.setItem('calibrationData', calibrationData);
                 await seeSoInstance.startTracking(onGaze);
                 await seeSoInstance.setTrackingFps(100);
                 console.log('Eye tracking started.');
@@ -75,7 +78,7 @@ async function main() {
     } else {
         console.log('No calibration data given.');
         const calibrationButton = document.getElementById('calibrationButton');
-        calibrationButton.addEventListener('click',onClickCalibrationBtn);
+        calibrationButton.addEventListener('click', onClickCalibrationBtn);
     }
 }
 
@@ -86,11 +89,11 @@ async function main() {
     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
     const stopTrackingButton = iframeDocument.getElementById('stopTrackingButton');
     stopTrackingButton.addEventListener('click', async () => {
-        seeSoInstance.stopTracking();
+        await seeSoInstance.stopTracking();
         // send the gazeDataArray 
         console.log(gazeDataArray);
-        sendGazeData(gazeDataArray , window.location.href);
+        sendGazeData(gazeDataArray, window.location.href);
+        localStorage.removeItem('calibrationData');
         window.location.href = document.getElementById("myScript").getAttribute("data-url");
-        });
-  })()
-  
+    });
+})();

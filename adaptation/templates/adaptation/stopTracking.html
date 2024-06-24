@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Bootstrap Documentation Links -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <style>
         body, html {
             height: 100%;
             margin: 0;
             display: flex;
             justify-content: center;
+            background-color: transparent;
         }
         .container {
             text-align: center;
@@ -23,35 +27,11 @@
             margin-right: auto;
             margin-bottom: 100px;
         }
-        .button-47 {
-            align-items: center;
-            background: #FFFFFF;
-            border: 0 solid #E2E8F0;
-            box-shadow: 0 10px 20px -2px rgba(0, 0, 0, 0.2), 0 6px 12px -3px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            color: #1A202C;
-            display: inline-flex;
-            font-family: Inter, sans-serif;
-            font-size: 1rem;
-            font-weight: 900; /* Make the text extra bold */
-            height: 56px;
-            justify-content: center;
-            line-height: 40px;
-            overflow-wrap: break-word;
-            padding: 24px;
-            text-decoration: none;
-            width: auto;
-            border-radius: 8px;
-            cursor: pointer;
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <button id="stopTrackingButton" class="button-47" style="margin: 0 auto;">Next</button>
+        <button type="button" id="stopTrackingButton" class="btn btn-primary btn-lg" style="margin: 0 auto;">Next</button>
     </div>
 </body>
 </html>
