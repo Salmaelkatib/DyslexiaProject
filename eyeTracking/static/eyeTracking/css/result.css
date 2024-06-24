@@ -3,7 +3,7 @@
 }
 
 body {
-    background: linear-gradient(to right, #2195f32d, rgb(3, 205, 134));
+    background: linear-gradient(to right, #2195f32d, rgba(3, 205, 134, 0.425));
     font-family: Arial, sans-serif;
     margin: 0;
     display: flex;

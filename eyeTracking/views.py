@@ -57,7 +57,7 @@ def save_gaze_data(request):
 def getPredictions(data_array):
     # Load the ML model 
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    model_file_path = os.path.join(current_directory, 'ml_model', 'eyeTracking_model.sav')
+    model_file_path = os.path.join(current_directory, 'ml_model', 'eyetracking_model.sav')
     scaler_file_path = os.path.join(current_directory, 'ml_model', 'scaler.sav')
     
     with open(model_file_path, "rb") as model_file:
