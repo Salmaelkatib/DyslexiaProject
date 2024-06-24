@@ -50,9 +50,9 @@ function onGaze(gazeInfo) {
     // To show gaze dot on screen
     showGaze(gazeInfo);
 }
-async function main() {
-     calibrationData = parseCalibrationDataInQueryString();
 
+async function main() {
+    calibrationData = parseCalibrationDataInQueryString();
     if (calibrationData) {
         seeSoInstance = new EasySeeSo();
         await seeSoInstance.init(licenseKey,
@@ -78,9 +78,10 @@ async function main() {
     } else {
         console.log('No calibration data given.');
         const calibrationButton = document.getElementById('calibrationButton');
-        calibrationButton.addEventListener('click',onClickCalibrationBtn);
+        calibrationButton.addEventListener('click', onClickCalibrationBtn);
     }
 }
+
 (async () => {
     await main();
     // set listener for stopTracking button
@@ -88,14 +89,11 @@ async function main() {
     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
     const stopTrackingButton = iframeDocument.getElementById('stopTrackingButton');
     stopTrackingButton.addEventListener('click', async () => {
-        seeSoInstance.stopTracking();
+        await seeSoInstance.stopTracking();
         // send the gazeDataArray 
         console.log(gazeDataArray);
-        sendGazeData(gazeDataArray , window.location.href);
-        alert(`Before Clear: `,calibrationData);
-        localStorage.clear();
-        alert(`After Clear: `,calibrationData)
-        //window.location.href = document.getElementById("myScript").getAttribute("data-url");
-        });
-  })()
-  
+        sendGazeData(gazeDataArray, window.location.href);
+        localStorage.removeItem('calibrationData');
+        window.location.href = document.getElementById("myScript").getAttribute("data-url");
+    });
+})();

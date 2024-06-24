@@ -64,11 +64,6 @@ async function main() {
         seeSoInstance = new EasySeeSo();
         await seeSoInstance.init(licenseKey,
             async () => {
-<<<<<<< HEAD
-=======
-                // Disable the calibration button
-                //document.getElementById('calibrationButton').disabled = true;
->>>>>>> 464bc36039ce3fdc8a1c243dd28a1171fe56adf2
                 await seeSoInstance.setCalibrationData(calibrationData);
                 await seeSoInstance.startTracking(onGaze);
                 await seeSoInstance.setTrackingFps(100);
@@ -94,12 +89,12 @@ export async function eyeTracking(url){
         console.log(gazeDataArray);
         sendGazeData(gazeDataArray , window.location.href);
         // to navigate to next screen
-        window.location.href = document.getElementById("myScript").getAttribute("data-url");
+        window.location.href = url;
         });
 }
 
 (async () => {
-    eyeTracking(document.getElementById("myScript").getAttribute("data-url"),0); 
+    eyeTracking(document.getElementById("myScript").getAttribute("data-url")); 
     const calibrationButton = document.getElementById('calibrationButton');
     calibrationButton.addEventListener('click', onClickCalibrationBtn);
 })()
