@@ -2,32 +2,32 @@ import EasySeeSo from './easy-seeso.js';
 import showGaze from './showGaze.js';
 import sendGazeData from './AJAXModule.js';
 import { CalibrationData } from './seeso.min.js';
-
+ 
 const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
 let seeSoInstance;
 let gazeDataArray = [];
 let calibrationData;
 export let ppi;
-
+ 
 // In redirected page
 function parseCalibrationDataInQueryString() {
     const href = window.location.href;
     const decodedURI = decodeURI(href);
     const queryString = decodedURI.split('?')[1];
-
+ 
     if (!queryString) return undefined;
     const jsonString = queryString.slice("calibrationData=".length, queryString.length);
     return jsonString;
 }
-
+ 
 // Open calibration once the page loads
 function onClickCalibrationBtn() {
-    const userId = 'YOUR_USER_ID'; 
+    const userId = 'YOUR_USER_ID';
     const redirectUrl = window.location.href;
     const calibrationPoint = 5;
     EasySeeSo.openCalibrationPage(licenseKey, userId, redirectUrl, calibrationPoint);
 }
-
+ 
 // Gaze callback
 function onGaze(gazeInfo) {
     // Adjust timestamp to UTC format
@@ -38,7 +38,7 @@ function onGaze(gazeInfo) {
     const milliseconds = date.getUTCMilliseconds().toString().padStart(3, '0');
     const totalSeconds = minutes * 60 + seconds;
     timestamp = parseFloat(`${totalSeconds}.${milliseconds}`);
-    
+   
     // Append gaze info to the array
     gazeDataArray.push({
         timestamp: gazeInfo.timestamp,  //in ms
@@ -46,11 +46,11 @@ function onGaze(gazeInfo) {
         y: (gazeInfo.y),
         state: gazeInfo.eyemovementState
     });
-
+ 
     // To show gaze dot on screen
     showGaze(gazeInfo);
 }
-
+ 
 async function main() {
     calibrationData = parseCalibrationDataInQueryString();
     if (calibrationData) {
@@ -64,7 +64,7 @@ async function main() {
                 await seeSoInstance.startTracking(onGaze);
                 await seeSoInstance.setTrackingFps(100);
                 console.log('Eye tracking started.');
-
+ 
                 // get monitorInch size from calibration data
                 const data = JSON.parse(calibrationData);
                 const monitorInch = parseInt(data.monitorInch);
@@ -81,16 +81,14 @@ async function main() {
         calibrationButton.addEventListener('click', onClickCalibrationBtn);
     }
 }
-
+ 
 (async () => {
     await main();
     // set listener for stopTracking button
-    const iframe = document.getElementById('embeddedPage');
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    const stopTrackingButton = iframeDocument.getElementById('stopTrackingButton');
+    const stopTrackingButton = document.getElementById('stopTrackingButton');
     stopTrackingButton.addEventListener('click', async () => {
         await seeSoInstance.stopTracking();
-        // send the gazeDataArray 
+        // send the gazeDataArray
         console.log(gazeDataArray);
         sendGazeData(gazeDataArray, window.location.href);
         localStorage.removeItem('calibrationData');
