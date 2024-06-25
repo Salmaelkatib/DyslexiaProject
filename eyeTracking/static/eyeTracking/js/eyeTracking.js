@@ -3,7 +3,7 @@ import showGaze from './showGaze.js';
 import sendGazeData from './AJAXModule.js';
 import { CalibrationData } from './seeso.min.js';
 
-const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
+const licenseKey = 'dev_zuv39nu8xu715hqg7cya0m4zlj5idxergmqbfqii';
 let seeSoInstance;
 let gazeDataArray = [];
 let calibrationData;
