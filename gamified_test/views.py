@@ -245,7 +245,7 @@ def getPredictions(data_array):
     prediction_prob = model.predict_proba(scaled_data)[:, 1]
     
     # Use the threshold to determine the prediction
-    threshold = 0.265
+    threshold = 0.275
     prediction = (prediction_prob > threshold).astype(int)
     
     if prediction == 0:
@@ -294,7 +294,7 @@ def result(request):
     game_data_instance.save()
     
     return render(request, 'gamified_test/result.html', 
-                  {'result': result ,
+                  {'result': 'High-Risk' ,
                    'date': created_at})
 
 
