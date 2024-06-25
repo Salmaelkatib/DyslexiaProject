@@ -16,8 +16,30 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+<<<<<<< HEAD
         font-size: xx-large;
         line-height: 1.7;
+=======
+    }
+    .container {
+      font-size: xx-large;
+      font-family: Arial;
+      line-height: 1.7;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* Align items to the start */
+      text-align: left; /* Ensure text is left-aligned */
+      padding:0px;
+      width: 100%; /* Adjust width as needed */
+      overflow: hidden;
+      left-margin:2px;  
+    }
+    .container p {
+      margin: 0;
+      padding: 0;
+      white-space: nowrap; /* Prevent wrapping */
+>>>>>>> a0471a0ab59e97d97115e1676366f3f22b96505c
     }
     #calibrationButton {
         margin-bottom: 20px; /* Add some margin from the bottom */
@@ -47,10 +69,20 @@
   <iframe id="embeddedPage" src="{% url 'adaptation:stopTracking' %}"></iframe>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   {% block scripts %}
+<<<<<<< HEAD
     <p>On a sunny Wednesday, a handsome farmer stood by his house, his brown jacket</br> 
       shielding him from the rain. He watched the boat with excitement, dreaming </br> 
       of a thrilling adventure. The rain started to affect his mood. "I need an awesome,</br>  
       thrilling tale to uplift me,"  he said, looking up at the sky, seeking a rainbow.</br> 
+=======
+  <div class="container">
+    <p>On a sunny Wednesday, a handsome farmer stood by his house,</br>
+      his brown jacket shielding him from the rain. He watched the boat</br>
+       with excitement, dreaming of a thrilling adventure. The rain started</br>
+       to affect his mood. "I need an awesome, thrilling tale to uplift me,"</br>
+       he said, looking up at the sky, seeking a rainbow.</br>
+      </div>
+>>>>>>> a0471a0ab59e97d97115e1676366f3f22b96505c
     <!-- Default script tags -->
     <script src="{% static 'adaptation/js/eyeTracking.js' %}" type="module"
       id="myScript" data-url="{% url 'adaptation:bg_extension1' %}"></script>

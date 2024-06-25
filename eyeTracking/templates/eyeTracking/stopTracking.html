@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,21 +13,17 @@
         margin: 0;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
     .container {
         text-align: center;
         font-size: larger;
         line-height: 2.0;
-        flex-grow: 1; /* Grow to fill remaining space */
-    }
-   #stopTrackingButton{
-        margin-top: auto; /* Push buttons to the bottom */
-        margin-left: auto; /* Center horizontally */
-        margin-right: auto;
+        flex-grow: 1;
     }
 </style>
 <body>
     <div class="container">
-        <button type="button" id="stopTrackingButton" class="btn btn-primary" style="margin: 0 auto;">Finish</button>
+        <button type="button" id="stopTrackingButton" class="btn btn-primary">Finish</button>
     </div>
 </body>
