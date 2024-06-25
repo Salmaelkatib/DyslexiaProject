@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-
 class adaptation_GazeData(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     base_afd = models.FloatField(null=True, blank=True)
