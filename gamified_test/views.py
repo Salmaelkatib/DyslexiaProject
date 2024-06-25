@@ -294,7 +294,7 @@ def result(request):
     game_data_instance.save()
     
     return render(request, 'gamified_test/result.html', 
-                  {'result': result ,
+                  {'result': 'High-Risk' ,
                    'date': created_at})
 
 
