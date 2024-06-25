@@ -85,9 +85,7 @@ async function main() {
 (async () => {
     await main();
     // set listener for stopTracking button
-    const iframe = document.getElementById('embeddedPage');
-    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    const stopTrackingButton = iframeDocument.getElementById('stopTrackingButton');
+    const stopTrackingButton = document.getElementById('stopTrackingButton');
     stopTrackingButton.addEventListener('click', async () => {
         await seeSoInstance.stopTracking();
         // send the gazeDataArray 

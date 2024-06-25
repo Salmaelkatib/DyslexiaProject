@@ -1,9 +1,13 @@
-{% extends "authentication/base.html" %}
-{%block content%}
+{% block content %}
 {% load static %}
 <head>
   <meta charset="utf-8">
   <title>Eye Tracking Test</title>
+  <!-- Include jquery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <!-- Bootstrap Documentation Links -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
   <style>
     body, html {
         height: 100%;
@@ -14,57 +18,68 @@
         align-items: center;
     }
     .container {
-        margin-top: 20px;
         font-size: xx-large;
         font-family: Arial;
         line-height: 1.7;
-        flex: 1; /* Allow the container to grow and center */
+        flex: 1;
         display: flex;
         align-items: center;
+        justify-content: flex-start; /* Align items to the start */
+        text-align: left; /* Ensure text is left-aligned */
+        padding: 20px;
+        width: 100%; /* Adjust width as needed */
     }
-    #calibrationButton {
-        margin-bottom: 20px; /* Add some margin from the bottom */
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000; /* Ensure button is on top */
+    .bottom-container {
+      display: flex;
+      flex-direction: row;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+    }
+    #calibrationButton, #stopTrackingButton {
+      margin-top:500px;
+        margin:5px;
+        width: 200px;
+        height:auto;
     }
     #embeddedPage {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px;
-        height: 100px;
-        border: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      border: none;
+  }
+    @media (max-width: 600px) {
+        #calibrationButton, #stopTrackingButton {
+            width: 90%;
+            margin: 10px 0;
+        }
+        .container {
+            width: 90%;
+            font-size: large;
+        }
     }
   </style>
 </head>
 <body>
   <canvas id="output" style="position: fixed;"></canvas>
   <div class="container">
-    <p>The sun was bright.They went 
-      to the park.</br> There was a 
-      dinosaur statue.</br> Tom said, "Look 
-      here." Sara saw a hole.</br>
-      She gave a laugh.</br> "Is it 
-      real?" she asked. </br>They walked 
-      further along.</br> They found a hidden 
-      path.</br> It was an exciting day.
+    <p>The sun was bright. They went to the park.<br>
+      There was a dinosaur statue.<br>
+      Tom said, "Look here." Sara saw a hole.<br>
+      She gave a laugh.<br> "Is it real?" she asked.<br>
+      They walked further along.<br>
+      They found a hidden path.<br>
+      It was an exciting day.</p>
   </div>
-  </form>
-  <form>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <button id="calibrationButton" type="button" class="btn btn-primary">Start calibration</button>
-      </div>
-      <div class="form-group col-md-6">     
-        <!-- Embed another HTML page containing the stopTracking button to ensure its responsiveness when eyeTracking is active -->
-       <iframe id="embeddedPage" src="{% url 'eyeTracking:stopTracking' %}"></iframe>
-      </div>
-    </div>
-  </form>
+  <div class="bottom-container">
+    <button id="calibrationButton" type="button" class="btn btn-primary">Start calibration</button>
+    <button id="stopTrackingButton" type="button" class="btn btn-primary">Finish</button>
+  </div>
   <script src="{% static 'eyeTracking/js/eyeTracking.js' %}" type="module" id="myScript" data-url="{% url 'eyeTracking:result' %}"></script>
-  </body>
-{%endblock%}
+</body>
+{% endblock %}

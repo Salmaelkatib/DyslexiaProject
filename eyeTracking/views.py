@@ -67,12 +67,8 @@ def getPredictions(data_array):
         scaler = pickle.load(scaler_file)
     
     # Scale the input data using the loaded scaler
-    scaled_data = scaler.transform([data_array])  
-    prediction_prob = model.predict_proba(scaled_data)[:, 1]
-    
-    # Use the threshold to determine the prediction
-    threshold = 0.265
-    prediction = (prediction_prob > threshold).astype(int)
+    scaled_data = scaler.transform([data_array])
+    prediction = model.predict(scaled_data)
     
     if prediction == 0:
         return "Low-Risk"  # Not dyslexic
@@ -107,15 +103,20 @@ def result(request):
     created_at = gaze_data_instance.created_at
     data_dict['Gender'] = 1 if gender.lower() == 'male' else 0
     data_dict['Avg_Fix_Duration'] = gaze_data_instance.avg_fix_duration
+    print('Avg_Fix_Duration from db is' ,gaze_data_instance.avg_fix_duration )
     data_dict['Avg_Sacc_Duration'] = gaze_data_instance.avg_saccade_duration
+    print('Avg_Sacc_Duration from db is' ,gaze_data_instance.avg_saccade_duration )
     data_dict['Total_Fix'] = gaze_data_instance.total_fixations
+    print('Total_Fix from db is' ,gaze_data_instance.total_fixations )
     data_dict['Total_Sacc'] = gaze_data_instance.total_saccades
+    print('Total_Sacc from db is' ,gaze_data_instance.total_saccades )
     data_dict['Sacc_Fix_Ratio'] = gaze_data_instance.saccades_to_fixations
     
     # Arrange the data according to the specified order
     input_data = [data_dict[field] for field in field_order]
     data_array = np.array(input_data, dtype=float)  
-
+    
+    print('data array of ', player.user.username , 'is' , data_array)
     result = getPredictions(data_array)
     
     # Save result in database
