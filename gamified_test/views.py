@@ -285,6 +285,37 @@ def result(request):
         data_dict[f'score_{i}'] = getattr(game_data_instance, f'score{i}')
         data_dict[f'accuracy_{i}'] = getattr(game_data_instance, f'accuracy{i}')
     
+    # Categorize questions into skills
+    skill_categories = {
+        'Alphabetic Awareness': range(1, 5),
+        'Phonological Awareness': [1, 2, 3, 4, 5, 6, 7, 8, 9, 22, 23, 26, 27, 29, 32],
+        'Visual Discrimination & Categorization': [1, 2, 3, 4, 14, 15, 16, 17, 30],
+        'Syllabic Awareness': [5, 6, 7, 8, 9, 28],
+        'Auditory Discrimination and Categorization': [5, 6, 7, 8, 9, 10, 11, 12, 13, 18, 19, 20, 21],
+        'Lexical Awareness': [10, 11, 12, 13, 22, 23, 26, 27, 28, 29, 31],
+        'Auditory Working Memory': [10, 11, 12, 13, 31],
+        'Visual Working Memory': [18, 19, 20, 21],
+        'Sequential Auditory Working Memory': [18, 19, 20, 21, 32],
+        'Orthographic Awareness': [22, 23, 26, 27, 28, 29, 31],
+        'Morphological and Semantic Awareness': [24],
+        'Syntactic Awareness': [25],
+        'Sequential Visual Working Memory': [30],
+    }
+    
+    skill_ratios = {skill: [] for skill in skill_categories.keys()}
+    
+    for skill, questions in skill_categories.items():
+        for q in questions:
+            clicks = data_dict.get(f'clicks_{q}', 0)
+            hits = data_dict.get(f'hits_{q}', 0)
+            if clicks != 0:
+                skill_ratios[skill].append(hits / clicks)
+    
+    # Calculate average ratio for each skill
+    skill_averages = {skill: int((sum(ratios) / len(ratios)) * 100) if len(ratios) > 0 else 0 for skill, ratios in skill_ratios.items()}
+
+    print(skill_averages)
+
     # Arrange the data according to the specified order
     input_data = [data_dict[field] for field in field_order]
     data_array = np.array(input_data, dtype=float)  # Ensure the data array is of type float
@@ -292,10 +323,12 @@ def result(request):
     # Save result in database
     setattr(game_data_instance, 'result', result)
     game_data_instance.save()
-    
+
     return render(request, 'gamified_test/result.html', 
-                  {'result': 'High-Risk' ,
-                   'date': created_at})
+                  {'result': result ,
+                   'date': created_at,
+                   'skill_averages': skill_averages})
+
 
 
 
