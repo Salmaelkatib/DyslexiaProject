@@ -1,0 +1,82 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+#progress-bars {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Horizontal gap between progress bars */
+}
+
+.progress-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 65px; /* Vertical gap between lines */
+}
+.progress-circle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+circle {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+}
+
+.bg {
+    stroke: #e6e6e6;
+}
+
+.progress {
+    stroke-dasharray: 283; /* 2 * PI * r */
+    stroke-dashoffset: 283;
+    transition: stroke-dashoffset 1s ease-in-out;
+    transform-origin: center;
+}
+
+.text {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.progress-wrapper:nth-child(1) .progress { stroke: #0291ff; }
+.progress-wrapper:nth-child(2) .progress { stroke: #3366CC; }
+.progress-wrapper:nth-child(3) .progress { stroke: #FF9900; }
+.progress-wrapper:nth-child(4) .progress { stroke: #575bcb; }
+.progress-wrapper:nth-child(5) .progress { stroke: #DD4477; }
+.progress-wrapper:nth-child(6) .progress { stroke: #FF9900; }
+.progress-wrapper:nth-child(7) .progress { stroke: #00aba9; }
+.progress-wrapper:nth-child(8) .progress { stroke: #3B3EAC; }
+.progress-wrapper:nth-child(9) .progress { stroke: #DD4477; }
+.progress-wrapper:nth-child(10) .progress { stroke: #22AA99; }
+.progress-wrapper:nth-child(11) .progress { stroke: #6633CC; }
+.progress-wrapper:nth-child(12) .progress { stroke: #E67300; }
+.progress-wrapper:nth-child(13) .progress { stroke: #2b5797; }
+
+text {
+    text-anchor: middle;
+    font-size: 1.2em;
+    fill: #333;
+}

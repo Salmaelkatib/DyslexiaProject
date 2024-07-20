@@ -1,0 +1,35 @@
+{% extends "authentication/base.html" %}
+{% load static %} 
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Skills Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{% static 'gamified_test/css/statistical_result.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cognitive Skills</h1>
+        <div id="progress-bars">
+            {% for skill, average in skill_averages.items %}
+                <div class="progress-wrapper">
+                    <div class="progress-circle" data-value="{{ average }}">
+                        <svg>
+                            <circle class="bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="progress" cx="50" cy="50" r="45"></circle>
+                            <text x="50%" y="50%" text-anchor="middle">{{ average }}%</text>
+                        </svg>
+                    </div>
+                    <h6 style="font-weight: bold;">{{ skill }}</h6>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{%static 'gamified_test/Js/statistical_result.js'%}"></script>
+</body>
+</html>
+
+{%endblock%}

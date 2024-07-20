@@ -3,6 +3,7 @@ import json
 import random
 from django.http import JsonResponse
 from .models import GameData
+from authentication.models import Player
 import numpy as np
 import pickle
 import os
@@ -265,8 +266,11 @@ def result(request):
         field_order.extend([f'clicks_{i}', f'hits_{i}', f'misses_{i}', f'missrate_{i}', f'score_{i}', f'accuracy_{i}'])
     
     data_dict = {}
-    # Retrieve data of the first row of the GameData table
-    game_data_instance = GameData.objects.first()
+    # retrieves the Player object linked to the currently authenticated user.
+    user = request.user
+    player = Player.objects.get(user=user)
+    # Get GameData object for the player
+    game_data_instance = GameData.objects.get(player=player)
     
     # Access demographic data of player
     gender = game_data_instance.player.gender
@@ -303,17 +307,14 @@ def result(request):
     }
     
     skill_ratios = {skill: [] for skill in skill_categories.keys()}
-    
     for skill, questions in skill_categories.items():
         for q in questions:
-            clicks = data_dict.get(f'clicks_{q}', 0)
-            hits = data_dict.get(f'hits_{q}', 0)
-            if clicks != 0:
-                skill_ratios[skill].append(hits / clicks)
+            accuracy = data_dict.get(f'accuracy_{q}', 0.0)
+            skill_ratios[skill].append(accuracy)
     
     # Calculate average ratio for each skill
     skill_averages = {skill: int((sum(ratios) / len(ratios)) * 100) if len(ratios) > 0 else 0 for skill, ratios in skill_ratios.items()}
-
+    
     print(skill_averages)
 
     # Arrange the data according to the specified order
@@ -324,7 +325,7 @@ def result(request):
     setattr(game_data_instance, 'result', result)
     game_data_instance.save()
 
-    return render(request, 'gamified_test/result.html', 
+    return render(request, 'gamified_test/statistical_result.html', 
                   {'result': result ,
                    'date': created_at,
                    'skill_averages': skill_averages})

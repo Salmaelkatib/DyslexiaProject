@@ -40,4 +40,5 @@ urlpatterns = [
     path('q32Screen/', views.q32Screen, name='q32Screen'),
     path('save_performance_data/<int:exercise_num>/', views.save_performance_data, name='save_performance_data'),
     path('result/', views.result, name='result'),
+    path('statistical_result/',views.result,name='statistical_result'),
 ]

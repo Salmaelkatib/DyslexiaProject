@@ -1,110 +1,8 @@
 {% extends "authentication/base.html" %}
-{% load static %}
+{% load static %} 
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skill Averages</title>
-    <style>
-        .container {
-            width: 100%;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .chart-container {
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            margin-bottom: 40px;
-        }
-        canvas {
-            width: 100% !important;
-            height: auto !important;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Skill Averages</h1>
-        <!-- Create a canvas for each chart -->
-        {% for skill, average in skill_averages.items %}
-            <div class="chart-container">
-                <canvas id="chart_{{ forloop.counter }}"></canvas>
-            </div>
-        {% endfor %}
-    </div>
-    
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Include JSON data -->
-    <script type="application/json" id="skill-averages">
-        {{ skill_averages|json_script:"skill-averages" }}
-    </script>
-
-    <!-- Include JavaScript to create pie charts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get JSON data from Django
-            const skillAveragesElement = document.getElementById('skill-averages');
-            const skillAverages = JSON.parse(skillAveragesElement.textContent);
-
-            function createPieChart(id, percentage, skillName) {
-                const ctx = document.getElementById(id).getContext('2d');
-                new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Score', 'Remaining'],
-                        datasets: [{
-                            label: skillName,
-                            data: [percentage, 100 - percentage],
-                            backgroundColor: ['#00aaff', '#ddd'],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return context.label + ': ' + context.raw.toFixed(0) + '%';
-                                    }
-                                }
-                            },
-                            legend: {
-                                display: false
-                            },
-                            datalabels: {
-                                color: '#000',
-                                display: true,
-                                formatter: function(value) {
-                                    return value.toFixed(0) + '%';
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            // Create a chart for each skill
-            Object.keys(skillAverages).forEach((skill, index) => {
-                const percentage = skillAverages[skill];
-                createPieChart(`chart_${index + 1}`, percentage, skill);
-            });
-        });
-    </script>
-</body>
-</html>
-
-
-    <!-- <link rel="stylesheet" href="{% static 'gamified_test/css/result.css' %}">
+    <link rel="stylesheet" href="{% static 'gamified_test/css/result.css' %}">
     <div class="container">
         <div class="card w-55">
             <div class="card-body">
@@ -127,5 +25,5 @@
                 
             </div>
         </div>
-    </div> -->
+    </div> 
 {% endblock %}

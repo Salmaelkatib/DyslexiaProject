@@ -1,14 +1,8 @@
 import EasySeeSo from './easy-seeso.js';
 import showGaze from './showGaze.js';
 import sendGazeData from './AJAXModule.js';
-import { CalibrationData } from './seeso.min.js';
-<<<<<<< HEAD
 
 const licenseKey = 'dev_zuv39nu8xu715hqg7cya0m4zlj5idxergmqbfqii';
-=======
- 
-const licenseKey = 'dev_1t9m51mlw9xbhu3jycg8nxl1qi051qxtwaudhzww';
->>>>>>> 0cd5e4517aa9edc1660bd6f25f61890f9afa4031
 let seeSoInstance;
 let gazeDataArray = [];
 let calibrationData;
